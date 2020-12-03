@@ -1,4 +1,4 @@
-import Box from "./Box.js";
+import Box from "./../game/Box.js";
 
 export default class MilkAndCookies extends Box {
 	constructor() {

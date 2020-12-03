@@ -3,4 +3,6 @@ export default class Box {
 		this.pos = null;
 		this.damage = 0;
 	}
+
+	draw() {}
 }
