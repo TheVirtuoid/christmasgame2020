@@ -1,2 +1,2 @@
-# christmasgame2020
-Boring JavaScript Christmas Game 2020
+# holidaygame2020
+Boring JavaScript Holiday Game 2020
