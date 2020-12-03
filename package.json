@@ -1,0 +1,25 @@
+{
+  "name": "holidaygame2020",
+  "version": "1.0.0",
+  "description": "Boring JavaScript Holiday Game for 2020",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheVirtuoid/holidaygame2020.git"
+  },
+  "keywords": [
+    "Boring",
+    "JavaScript",
+    "Holiday",
+    "Game"
+  ],
+  "author": "TheVirtuoid <thevirtuoid@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/TheVirtuoid/holidaygame2020/issues"
+  },
+  "homepage": "https://github.com/TheVirtuoid/holidaygame2020#readme"
+}
