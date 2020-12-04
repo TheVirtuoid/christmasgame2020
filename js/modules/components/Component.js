@@ -8,13 +8,14 @@ export default class Component {
 		this.size = "24px";
 	}
 
-	draw(text) {
+	draw(text, maxLength = 0) {
 		this.renderer.draw({
 			text: text,
 			size: this.size,
 			color: this.color,
 			font: this.font,
-			pos: this.pos
+			pos: this.pos,
+			maxLength: maxLength
 		})
 	}
 }

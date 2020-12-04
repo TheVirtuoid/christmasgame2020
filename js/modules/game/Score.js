@@ -1,15 +1,11 @@
 export default class Score {
-	constructor() {
-		this.score = 0;
+	constructor(initialValue = 0) {
+		this.score = initialValue;
 	}
 
 	add(number) {
 		this.score += number;
 	}
 
-	subtract(number) {
-		this.score -= number;
-	}
 
-	draw(canvas) {}
 }

@@ -3,9 +3,21 @@ import Component from "./Component.js";
 export default class StartButton extends Component {
 	constructor(args) {
 		super(args);
+		this.processClickRange = {};
 	}
 
 	draw() {
+		this.text = "CLICK/TOUCH HERE TO START";
+		this.size = 24;
+		const x1 = ( this.renderer.width - this.text.length * this.renderer.fontSizes[this.size].width) / 2;
+		const y1 = 600;
+		const x2 = x1 + this.text.length * this.renderer.fontSizes[this.size].width;
+		const y2 = y1 + this.renderer.fontSizes[this.size].height;
+		this.pos = { x: x1, y: y1 };
+		super.draw(this.text, x2 - x1);
+		this.processClickRange = { x1, x2, y1, y2 };
+		this.renderer.canvas.addEventListener('click', this.processClick.bind(this));
+/*
 		this.renderer.ctx.strokeStyle = "green";
 		this.renderer.ctx.lineWidth = 5;
 		// this.renderer.ctx.arc(175, 575, 20, 0, Math.PI * 2, true);
@@ -14,6 +26,18 @@ export default class StartButton extends Component {
 
 		this.renderer.ctx.arcTo(400, 595, 400, 545, 20);
 		this.renderer.ctx.stroke();
+*/
+	}
+
+	processClick (event) {
+		const { x1, x2, y1, y2 } = this.processClickRange;
+		const hitX = event.offsetX >= x1 && event.offsetX <= x2;
+		const hitY = event.offsetY >= y1 && event.offsetY <= y2;
+		if (hitX && hitY) {
+			console.log('HIT!');
+		} else {
+			console.log('MISS!');
+		}
 	}
 
 /*

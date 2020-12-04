@@ -12,10 +12,14 @@ export default class Renderer {
 	}
 
 	draw(args) {
-		const { text, size, color, font, pos } = args;
+		const { text, size, color, font, pos, maxLength } = args;
 		this.ctx.fillStyle = color;
 		this.ctx.font = `${size}px ${font}`;
-		this.ctx.fillText(text, pos.x, pos.y);
+		if (maxLength !== 0) {
+			this.ctx.fillText(text, pos.x, pos.y, maxLength);
+		} else {
+			this.ctx.fillText(text, pos.x, pos.y);
+		}
 	}
 
 	initSizer() {
