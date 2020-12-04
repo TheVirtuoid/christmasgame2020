@@ -6,7 +6,7 @@ export default class HighScores {
 		]
 	}
 
-	isHighScore(score) {
+	setHighScore(score) {
 		const index = this.scores.findIndex( highScore => null ? true : score > highScore.score);
 		if (index !== -1) {
 			// get initials
@@ -14,7 +14,7 @@ export default class HighScores {
 			this.scores = this.scores.splice(index, 0, { score, initials });
 			this.scores.pop();  // remove 11th score
 		}
+		return index;
 	}
 
-	draw() {}
 }

@@ -1,8 +1,7 @@
 @font-face {
   font-family: ArcadeClassic;
-  src: url('/img/arcadeclassic.ttf')  format('truetype')
+  src: url("/img/arcadeclassic.ttf") format("truetype");
 }
-
 html {
   font-size: 16px;
 }
@@ -14,7 +13,7 @@ body {
   flex-direction: row;
   justify-content: space-around;
   /* font-family: ArcadeClassic monospace; */
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   background-color: green;
   font-size: 1rem;
 }
@@ -33,3 +32,5 @@ body {
   top: -9999px;
   left: -9999px;
 }
+
+/*# sourceMappingURL=game.css.map */

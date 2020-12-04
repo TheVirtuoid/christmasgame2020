@@ -1,7 +1,7 @@
 export default class Screen {
 	constructor(args) {
-		const { canvas } = args;
-		this.canvas = canvas;
+		const { renderer } = args;
+		this.renderer = renderer;
 	}
 
 	initialize() {
