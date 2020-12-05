@@ -22,6 +22,12 @@ export default class Renderer {
 		}
 	}
 
+	erase(args) {
+		const { top, left, width, height } = args;
+		this.ctx.fillStyle = "black";
+		this.ctx.fillRect(left, top, width, height);
+	}
+
 	initSizer() {
 		for(let i = 8; i <= 64; i++) {
 			const span = document.createElement('span');

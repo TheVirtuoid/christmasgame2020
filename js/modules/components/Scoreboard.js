@@ -1,7 +1,6 @@
 import Health from "./Health.js";
 import ScoreCard from "./ScoreCard.js";
 import HighScore from "./HighScore.js";
-import { borders, fontSizes } from "./../game/params.js";
 
 export default class Scoreboard {
 	constructor(args) {

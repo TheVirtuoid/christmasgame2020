@@ -1,15 +1,23 @@
-import RunRunSanta from "./RunRunSanta.js";
-import StartButton from "./StartButton.js";
-
 export default class Playground {
 	constructor(args) {
-		const { renderer } = args;
+		const { renderer, top, left, width, height } = args;
+		this.top = top;
+		this.left = left;
+		this.width = width;
+		this.height = height;
 		this.renderer = renderer;
-		this.runRunSanta = new RunRunSanta({ renderer });
-		this.startButton = new StartButton({ renderer });
+		this.components = [];
 	}
 
-	draw(object) {
-		console.log(this[object]);
+	draw() {
+		this.components.forEach( component => component.draw() );
+	}
+
+	erase() {
+		this.components.forEach( component => component.erase() );
+	}
+
+	add(component) {
+		this.components.push(component);
 	}
 }

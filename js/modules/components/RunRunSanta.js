@@ -5,21 +5,18 @@ export default class RunRunSanta extends Component {
 		super(args);
 		this.color = "white";
 		this.font = "Courier New, monospace";
-		this.x = 10;
-		this.y = 200;
+		this.justify = "left";
 	}
 
-	draw(score) {
-		this.size = 60;
-		this.pos = { x: this.x, y: this.y};
-		super.draw("Run");
-
-		this.pos = { x: this.x + 90, y: this.y + 70 };
-		super.draw("Run");
-
-		this.pos = { x: this.x + 180, y: this.y + 140 };
-		super.draw("Santa!");
-
+	draw() {
+		super.draw("Run", this.top, this.left);
+		super.draw("Run", this.top + 70, this.left + 90);
+		super.draw("Santa!", this.top + 140, this.left + 180);
 	}
 
+	erase() {
+		super.erase(this.top, this.left);
+		super.erase(this.top + 70, this.left + 90);
+		super.erase(this.top + 140, this.left + 180);
+	}
 }
