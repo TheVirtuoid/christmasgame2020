@@ -27,9 +27,10 @@ export default class Renderer {
 			const span = document.createElement('span');
 			span.style.fontFamily = this.font;
 			span.style.fontSize = `${i}px`;
-			span.textContent = "0";
+			span.textContent = "M";
 			this.sizer.appendChild(span);
 			this.fontSizes[i] = ({ height: span.offsetHeight, width: span.offsetWidth });
 		}
+		console.log(this.fontSizes);
 	}
 }

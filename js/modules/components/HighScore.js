@@ -1,33 +1,50 @@
-import Component from "./Component.js";
+import ScoreBoardComponent from "./ScoreBoardComponent.js";
+import Score from "./../game/Score.js";
+import { fontSizes, borders } from "./../game/params.js";
 
-export default class HighScore extends Component {
+
+export default class HighScore {
 	constructor(args) {
-		super(args);
-		this.text = "HI SCORE";
-		this.color = "yellow";
-		this.font = "Courier New, monospace";
-		this.size = 20;
-		this.hiScoreText = {
-			text: "HI SCORE",
-			size: 18,
-			y: 10
-		}
-		this.hiScoreScore = {
-			text: "",
-			size: 20,
-			y: 10 + this.renderer.fontSizes[this.hiScoreText.size].height
-		}
+		const { renderer, top, left, height, width } = args;
+		const size = { text: 18, score: 20 };
+		this.renderer = renderer;
+		this.left = left;
+		this.top = top;
+		this.width = width;
+		this.height = height;
+		this.theText = new ScoreBoardComponent({
+			renderer,
+			top,
+			left,
+			width,
+			height: fontSizes[size.text].height,
+			color: "yellow",
+			size: size.text,
+			font: "Courier New, monospace",
+			text: "HI SCORE"
+		});
+		this.theScore = new ScoreBoardComponent({
+			renderer,
+			top: top + fontSizes[size.text].height,
+			left,
+			width,
+			height: fontSizes[size.score].height,
+			color: "yellow",
+			size: size.score,
+			font: "Courier New, monospace",
+		});
 	}
 
-	draw(score) {
-		this.text = this.hiScoreText.text;
-		this.size = this.hiScoreText.size;
-		this.pos = { x: (this.renderer.width - this.text.length * this.renderer.fontSizes[this.size].width) / 2, y: this.hiScoreText.y };
-		super.draw(this.text);
+	draw() {
+		this.drawHeaderText();
+		this.drawScore();
+	}
 
-		this.text = "00000 - AAA";
-		this.size = this.hiScoreScore.size;
-		this.pos = { x: (this.renderer.width - this.text.length * this.renderer.fontSizes[this.size].width) / 2, y: this.hiScoreScore.y };
-		super.draw(this.text);
+	drawHeaderText() {
+		this.theText.draw();
+	}
+
+	drawScore() {
+		this.theScore.draw("00000 AAA");
 	}
 }

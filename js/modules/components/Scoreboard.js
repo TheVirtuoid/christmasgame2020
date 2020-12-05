@@ -1,13 +1,37 @@
 import Health from "./Health.js";
 import ScoreCard from "./ScoreCard.js";
 import HighScore from "./HighScore.js";
+import { borders, fontSizes } from "./../game/params.js";
 
 export default class Scoreboard {
 	constructor(args) {
-		const { renderer } = args;
-		this.health = new Health({ renderer });
-		this.scoreCard = new ScoreCard({ renderer });
-		this.highScore = new HighScore({ renderer });
+		const { renderer, height, width, top, left } = args;
+		const third = Math.floor(width / 3);
+		this.width = width;
+		this.height = height;
+		this.top = top;
+		this.left = left;
+		this.scoreCard = new ScoreCard({
+			renderer,
+			top: top,
+			left: left,
+			height: height,
+			width: third
+		});
+		this.highScore = new HighScore({
+			renderer,
+			top: top,
+			left: left + third,
+			height: height,
+			width: third
+		});
+		this.health = new Health({
+			renderer,
+			top: top,
+			left: left + third + third,
+			height: height,
+			width: third
+		});
 	}
 
 	draw() {

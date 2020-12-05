@@ -1,33 +1,49 @@
-import Component from "./Component.js";
+import ScoreBoardComponent from "./ScoreBoardComponent.js";
+import Score from "./../game/Score.js";
+import { fontSizes, borders } from "./../game/params.js";
 
-export default class Health extends Component {
+export default class Health {
 	constructor(args) {
-		super(args);
-		this.color = "yellow";
-		this.font = "Courier New, monospace";
-		this.size = 20;
-		this.healthText = {
-			text: "HEALTH",
-			size: 18,
-			y: 10
-		}
-		this.healthScore = {
-			text: "",
-			size: 20,
-			y: 10 + this.renderer.fontSizes[this.healthText.size].height
-		}
+		const { renderer, top, left, height, width } = args;
+		const size = { text: 18, score: 20 };
+		this.renderer = renderer;
+		this.left = left;
+		this.top = top;
+		this.width = width;
+		this.height = height;
+		this.theText = new ScoreBoardComponent({
+			renderer,
+			top,
+			left,
+			width,
+			height: fontSizes[size.text].height,
+			color: "yellow",
+			size: size.text,
+			font: "Courier New, monospace",
+			text: "HEALTH"
+		});
+		this.theScore = new ScoreBoardComponent({
+			renderer,
+			top: top + fontSizes[size.text].height,
+			left,
+			width,
+			height: fontSizes[size.score].height,
+			color: "yellow",
+			size: size.score,
+			font: "Courier New, monospace",
+		});
 	}
 
-	draw(score) {
-		const oneThird = this.renderer.width / 3;
-		this.text = this.healthText.text;
-		this.size = this.healthText.size;
-		this.pos = { x: oneThird * 2 + ((oneThird - this.text.length * this.renderer.fontSizes[this.size].width) / 2), y: this.healthText.y }
-		super.draw(this.text);
+	draw() {
+		this.drawHeaderText();
+		this.drawScore();
+	}
 
-		this.text = "100";
-		this.size = this.healthScore.size;
-		this.pos = { x: oneThird * 2 + ((oneThird - this.text.length * this.renderer.fontSizes[this.size].width) / 2), y: this.healthScore.y }
-		super.draw(this.text);
+	drawHeaderText() {
+		this.theText.draw();
+	}
+
+	drawScore() {
+		this.theScore.draw("100");
 	}
 }

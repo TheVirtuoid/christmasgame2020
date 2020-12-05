@@ -1,48 +1,38 @@
-import Component from "./Component.js";
+import ScoreBoardComponent from "./ScoreBoardComponent.js";
 import Score from "./../game/Score.js";
+import { fontSizes, borders } from "./../game/params.js";
 
-export default class ScoreCard extends Component {
+export default class ScoreCard {
 	constructor(args) {
-		super(args);
+		const { renderer, top, left, height, width } = args;
+		const size = { text: 18, score: 20 };
+		this.renderer = renderer;
+		this.left = left;
+		this.top = top;
+		this.width = width;
+		this.height = height;
 		this.gameScore = new Score(0);
-		this.scoreBoardSection = {
-			text: {
-				x1: 10,
-				y1: 10,
-				width: Math.floor(this.renderer.width / 3),
-				// height: this.renderer.fontSizes(18),
-				height: 10,
-				size: 18
-			},
-			score: {
-				x1: 10,
-				// y1: this.renderer.fontSizes(this.fontSizes.text) + 11,
-				y1: 21,
-				width: Math.floor(this.renderer.width / 3),
-				// height: this.renderer.fontSizes(20),
-				height: 10,
-				size: 20
-			}
-		}
-		this.color = "yellow";
-		this.font = "Courier New, monospace";
-	}
-
-	erase() {
-		this.eraseText();
-		this.eraseScore();
-	}
-
-	eraseText() {
-		const { x1, y1, width, height } = this.scoreBoardSection.text;
-		this.renderer.ctx.fillStyle = "black";
-		this.renderer.ctx.fillRect(x1, y1, width, height);
-	}
-
-	eraseScore() {
-		const { x1, y1, width, height } = this.scoreBoardSection.score;
-		this.renderer.ctx.fillStyle = "black";
-		this.renderer.ctx.fillRect(x1, y1, width, height);
+		this.theText = new ScoreBoardComponent({
+			renderer,
+			top,
+			left,
+			width,
+			height: fontSizes[size.text].height,
+			color: "yellow",
+			size: size.text,
+			font: "Courier New, monospace",
+			text: "SCORE"
+		});
+		this.theScore = new ScoreBoardComponent({
+			renderer,
+			top: top + fontSizes[size.text].height,
+			left,
+			width,
+			height: fontSizes[size.score].height,
+			color: "yellow",
+			size: size.score,
+			font: "Courier New, monospace",
+		});
 	}
 
 	draw() {
@@ -51,24 +41,15 @@ export default class ScoreCard extends Component {
 	}
 
 	drawHeaderText() {
-		const { x1, y1, width, height, size } = this.scoreBoardSection.text;
-		this.eraseText();
-		this.text = "SCORE"
-		this.size = size;
-		this.pos = { x:  x1 + width - (this.text.length * this.renderer.fontSizes[this.size].width) / 2, y: y1  };
-		super.draw(this.text);
+		this.theText.draw();
 	}
 
 	drawScore() {
-		const { x1, y1, width, height, size } = this.scoreBoardSection.text;
-		this.eraseScore();
-		this.text = this.gameScore.score.toString();
-		this.size = size;
-		this.pos = { x:  x1 + width - (this.text.length * this.renderer.fontSizes[this.size].width) / 2, y: y1  };
-		super.draw(this.text);
+		this.theScore.draw(this.gameScore.score.toString());
 	}
 
 	addScore(score) {
 		this.gameScore.add(score);
+		this.drawScore();
 	}
 }
