@@ -49,11 +49,4 @@ export default class Santa {
 		this.sleigh.erase(top + 80, left);
 	}
 
-	move(event) {
-		console.log(event);
-	}
-
-	isHit (pos) {
-		return this.sleigh.isHit(pos) || this.reindeer.some( deer => deer.isHit(pos) );
-	}
 }

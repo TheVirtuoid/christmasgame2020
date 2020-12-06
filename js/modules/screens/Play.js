@@ -31,7 +31,7 @@ export default class Play extends Screen {
 		this.playground.draw();
 		if (!this.moveEnabled) {
 			this.renderer.canvas.addEventListener('mousemove', this.boundMoveFunction);
-			document.addEventListener('keyup', this.boundKeyFunction);
+			// document.addEventListener('keyup', this.boundKeyFunction);
 			this.moveEnabled = true;
 		}
 		setTimeout(this.beginDropping.bind(this), 2000);

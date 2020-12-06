@@ -1,5 +1,6 @@
 import Component from "../components/Component.js";
 import { borders } from "./params.js";
+let boxCount = 0;
 
 export default class Box extends Component {
 	constructor (args) {
@@ -11,6 +12,8 @@ export default class Box extends Component {
 		this.santa = args.santa;
 		this.dropRange = this.playground.height + this.playground.top + borders.top + borders.bottom;
 		this.incrementTiming = 10;
+		this.boxId = boxCount;
+		boxCount ++;
 	}
 
 	draw(top, left) {
@@ -43,6 +46,7 @@ export default class Box extends Component {
 		this.hit();
 		this.erase(this.dropTimer.oldTop, this.dropTimer.oldLeft);
 		this.draw(this.dropTimer.top, this.dropTimer.left);
+		console.log(`(${this.boxId}) Draw: (${this.dropTimer.top},${this.dropTimer.left})`);
 		if (this.dropTimer.top > this.dropRange) {
 			clearInterval(this.dropTimer.handle);
 			this.dropTimer = null;
@@ -62,7 +66,28 @@ export default class Box extends Component {
 	hit () {
 		const { top, left, width, height } = this.santa;
 		const d = this.dropTimer;
-		if (d.top >= top && d.top <= top + height && d.left >= left && d.left <= left + width) {
+		const dth = d.top + this.height;
+		const dlw = d.left + this.width;
+		const th = top + height;
+		const lw = left + width;
+/*
+		if ( (d.top >= top && d.top <= th) || (dth >= top && dth <= th)) {
+			console.log(`(${this.boxId}) top: (${d.top},${this.height})-(${top},${height}), left: (${d.left},${this.width})-(${left},${width}), Results: ${d.top >= top && d.top <= th && d.left >= left && d.left <= lw}-${dth >= top && dth <= th && dlw >= left && dlw <= lw}`);
+		}
+*/
+
+		const hitTop = d.top >= top && d.top <= th;
+		const hitBottom = dth >= top && dth <= th;
+		const hit = hitTop || hitBottom;
+/*
+		const hitLeft = (d.left >= left && d.left <= lw) || (dlw >= left && dlw <= lw);
+		const hitTop = (d.top >= top && d.top <= th) || (dth >= top && dth <= th);
+		if (hitTop) {
+			console.log(`(${this.boxId}) top: (${d.top},${this.height})-(${top},${height}), left: (${d.left},${this.width})-(${left},${width}), Results: ${hitTop}-${hitLeft}`);
+		}
+*/
+		if (hit) {
+			console.log(`**** HIT (${this.boxId}): current: (${d.top},${d.left}), old: (${d.oldTop},${d.oldLeft})`);
 			clearInterval(d.handle);
 			this.erase(d.oldTop, d.oldLeft);
 			return true;
