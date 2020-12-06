@@ -1,4 +1,6 @@
 import Intro from "./modules/screens/Intro.js";
+import Play from "./modules/screens/Play.js";
+
 import Renderer from "./modules/game/Renderer.js";
 
 const canvas = document.getElementById('pitch');
@@ -14,5 +16,9 @@ canvas.setAttribute('width', `${width}`);
 ctx.textBaseline = "top";
 ctx.fillStyle = "yellow";
 
+/*
 const introScreen = new Intro({ renderer });
 introScreen.start();
+*/
+const playScreen = new Play({ renderer });
+playScreen.start();

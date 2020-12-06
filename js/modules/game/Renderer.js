@@ -22,6 +22,12 @@ export default class Renderer {
 		}
 	}
 
+	drawFill(args) {
+		const { color, pos } = args;
+		this.ctx.fillStyle = color;
+		this.ctx.fillRect(pos.left, pos.top, pos.width, pos.height)
+	}
+
 	erase(args) {
 		const { top, left, width, height } = args;
 		this.ctx.fillStyle = "black";

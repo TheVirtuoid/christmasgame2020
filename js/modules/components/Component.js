@@ -13,9 +13,7 @@ export default class Component {
 		this.justify = justify;
 	}
 
-	draw(text, top, left) {
-		top = top ? top : this.top;
-		left = left ? left : this.left;
+	draw(text, top = this.top, left = this.left) {
 		const textLength = text.length * this.renderer.fontSizes[this.size].width;
 		const additive = this.justify === "left" ? 0 : this.justify === "center" ? (this.width - textLength) / 2 : 0;
 		const pos = {
@@ -31,6 +29,16 @@ export default class Component {
 			maxLength: textLength
 		});
 	}
+
+	drawFill(top, left) {
+		top = top ? top : this.top;
+		left = left ? left : this.left;
+		this.renderer.drawFill({
+			color: this.color,
+			pos: { left, top, width: this.width, height: this.height }
+		});
+	}
+
 
 	erase(top, left) {
 		top = top ? top : this.top;

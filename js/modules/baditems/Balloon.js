@@ -1,18 +1,19 @@
-import Component from "../components/Component.js";
+import Box from "./../game/Box.js";
 
-export default class Sleigh extends Component {
+export default class Balloon extends Box {
 	constructor(args) {
 		super(args);
+		this.color = "LightSalmon";
 	}
 
-	isHit(pos) {
-		// determine if there is a hit
+	get damage() {
+		return Math.floor(Math.random() * 5) + 3;
 	}
 
 	draw(top, left) {
 		top = top ? top : this.top;
 		left = left ? left : this.left;
-		super.drawFill(top, left);
+		super.draw(top, left);
 	}
 
 	erase(top, left) {
