@@ -28,7 +28,7 @@ export default class Intro extends Screen {
 	}
 
 	start() {
-		this.scoreBoard.draw();
+		this.scoreboard.draw();
 		this.playground.draw();
 	}
 

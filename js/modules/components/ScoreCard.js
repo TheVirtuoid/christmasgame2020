@@ -48,7 +48,7 @@ export default class ScoreCard {
 		this.theScore.draw(this.gameScore.score.toString());
 	}
 
-	addScore(score) {
+	add(score) {
 		this.gameScore.add(score);
 		this.drawScore();
 	}

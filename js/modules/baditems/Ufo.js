@@ -4,6 +4,7 @@ export default class Ufo extends Box {
 	constructor(args) {
 		super(args);
 		this.color = "LightCoral";
+		this.name = "UFO";
 	}
 
 	get damage() {

@@ -5,12 +5,12 @@ let boxCount = 0;
 export default class Box extends Component {
 	constructor (args) {
 		super(args);
-		this.playground = args.playground;
+		this.screen = args.screen;
 		this.dropTimer = null;
 		this.width = 30;
 		this.height = 30;
 		this.santa = args.santa;
-		this.dropRange = this.playground.height + this.playground.top + borders.top + borders.bottom;
+		this.dropRange = this.screen.playground.height + this.screen.playground.top + borders.top + borders.bottom;
 		this.incrementTiming = 10;
 		this.boxId = boxCount;
 		boxCount ++;
@@ -32,7 +32,7 @@ export default class Box extends Component {
 		left = left ? left : this.left;
 		this.dropTimer = {
 			count: 500,
-			distance: Math.ceil(this.playground.height / (time / this.incrementTiming)),
+			distance: Math.ceil(this.screen.playground.height / (time / this.incrementTiming)),
 			top: this.top,
 			left: left,
 			handle: null,
@@ -43,23 +43,28 @@ export default class Box extends Component {
 	}
 
 	dropIncrement() {
-		this.hit();
 		this.erase(this.dropTimer.oldTop, this.dropTimer.oldLeft);
-		this.draw(this.dropTimer.top, this.dropTimer.left);
-		console.log(`(${this.boxId}) Draw: (${this.dropTimer.top},${this.dropTimer.left})`);
-		if (this.dropTimer.top > this.dropRange) {
-			clearInterval(this.dropTimer.handle);
-			this.dropTimer = null;
-		} else {
-			this.dropTimer.count--;
-			if (this.dropTimer.count === 0) {
+		if (!this.hit()) {
+			this.draw(this.dropTimer.top, this.dropTimer.left);
+			if (this.dropTimer.top > this.dropRange) {
 				clearInterval(this.dropTimer.handle);
 				this.dropTimer = null;
 			} else {
-				this.dropTimer.oldTop = this.dropTimer.top;
-				this.dropTimer.oldLeft = this.dropTimer.left;
-				this.dropTimer.top += this.dropTimer.distance;
+				this.dropTimer.count--;
+				if (this.dropTimer.count === 0) {
+					clearInterval(this.dropTimer.handle);
+					this.dropTimer = null;
+				} else {
+					this.dropTimer.oldTop = this.dropTimer.top;
+					this.dropTimer.oldLeft = this.dropTimer.left;
+					this.dropTimer.top += this.dropTimer.distance;
+				}
 			}
+		} else {
+			const damage = this.damage;
+			console.log(`*** You got hit by a ${this.name} dealing ${damage} damage.`);
+			this.screen.subtractHealth(damage);
+			// this.scoreboard.subtractHealth(damage);
 		}
 	}
 
@@ -70,26 +75,12 @@ export default class Box extends Component {
 		const dlw = d.left + this.width;
 		const th = top + height;
 		const lw = left + width;
-/*
-		if ( (d.top >= top && d.top <= th) || (dth >= top && dth <= th)) {
-			console.log(`(${this.boxId}) top: (${d.top},${this.height})-(${top},${height}), left: (${d.left},${this.width})-(${left},${width}), Results: ${d.top >= top && d.top <= th && d.left >= left && d.left <= lw}-${dth >= top && dth <= th && dlw >= left && dlw <= lw}`);
-		}
-*/
-
 		const hitTop = d.top >= top && d.top <= th;
 		const hitBottom = dth >= top && dth <= th;
-		const hit = hitTop || hitBottom;
-/*
-		const hitLeft = (d.left >= left && d.left <= lw) || (dlw >= left && dlw <= lw);
-		const hitTop = (d.top >= top && d.top <= th) || (dth >= top && dth <= th);
-		if (hitTop) {
-			console.log(`(${this.boxId}) top: (${d.top},${this.height})-(${top},${height}), left: (${d.left},${this.width})-(${left},${width}), Results: ${hitTop}-${hitLeft}`);
-		}
-*/
-		if (hit) {
-			console.log(`**** HIT (${this.boxId}): current: (${d.top},${d.left}), old: (${d.oldTop},${d.oldLeft})`);
+		const hitLeft = d.left >= left && d.left <= lw;
+		const hitRight = dlw >= left && dlw <= lw;
+		if ((hitRight || hitLeft) && (hitTop || hitBottom)) {
 			clearInterval(d.handle);
-			this.erase(d.oldTop, d.oldLeft);
 			return true;
 		} else {
 			return false;

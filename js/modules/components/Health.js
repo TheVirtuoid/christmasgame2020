@@ -6,6 +6,7 @@ export default class Health {
 	constructor(args) {
 		const { renderer, top, left, height, width } = args;
 		const size = { text: 18, score: 20 };
+		this.score = 100;
 		this.renderer = renderer;
 		this.left = left;
 		this.top = top;
@@ -44,6 +45,11 @@ export default class Health {
 	}
 
 	drawScore() {
-		this.theScore.draw("100");
+		this.theScore.draw(this.score.toString());
+	}
+
+	add(score) {
+		this.score += score;
+		this.drawScore();
 	}
 }

@@ -4,6 +4,7 @@ export default class Balloon extends Box {
 	constructor(args) {
 		super(args);
 		this.color = "LightSalmon";
+		this.name = "Balloon";
 	}
 
 	get damage() {

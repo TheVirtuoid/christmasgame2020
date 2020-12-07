@@ -23,11 +23,13 @@ export default class Play extends Screen {
 		this.badItems = [Airplane, Balloon, Bird, Meteor, Ufo];
 		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500];
 		this.speed = [5000, 5000, 5000, 5000, 5000, 4000, 4000, 3000, 3000, 2000, 1000];
+
+		this.scoreTimer = null;
 	}
 
 	start() {
 		this.playground.add(this.santa);
-		this.scoreBoard.draw();
+		this.scoreboard.draw();
 		this.playground.draw();
 		if (!this.moveEnabled) {
 			this.renderer.canvas.addEventListener('mousemove', this.boundMoveFunction);
@@ -59,6 +61,7 @@ export default class Play extends Screen {
 	}
 
 	beginDropping() {
+		this.scoreTimer = setInterval(this.incrementScore.bind(this), 10);
 		let frequencyIndex = 0;
 		let masterTimer = null;
 		let count = 10;
@@ -69,7 +72,7 @@ export default class Play extends Screen {
 				renderer: self.renderer,
 				top: self.playground.top,
 				left: self.playground.left,
-				playground: self.playground,
+				screen: self,
 				santa: self.santa
 			});
 			item.drop(self.playground.left + Math.floor(Math.random() * self.playground.width), self.speed[Math.floor(Math.random() * self.speed.length)]);
@@ -89,5 +92,10 @@ export default class Play extends Screen {
 	}
 	endDropping() {
 		console.log('---------GMAE OVER');
+		clearInterval(this.scoreTimer);
+	}
+
+	incrementScore() {
+		this.addScore(1);
 	}
 }

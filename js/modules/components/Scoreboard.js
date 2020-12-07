@@ -42,4 +42,8 @@ export default class Scoreboard {
 	addScore(score) {
 		this.scoreCard.add(score);
 	}
+
+	subtractHealth(health) {
+		this.health.add(health * -1);
+	}
 }

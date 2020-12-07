@@ -4,6 +4,7 @@ export default class Airplane extends Box {
 	constructor(args) {
 		super(args);
 		this.color = "darkred";
+		this.name = "Airplane";
 	}
 
 	get damage() {

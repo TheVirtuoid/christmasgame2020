@@ -4,6 +4,7 @@ export default class Meteor extends Box {
 	constructor(args) {
 		super(args);
 		this.color = "crimson";
+		this.name = "Meteor";
 	}
 
 	get damage() {

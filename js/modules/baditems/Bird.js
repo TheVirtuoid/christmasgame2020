@@ -4,6 +4,7 @@ export default class Bird extends Box {
 	constructor(args) {
 		super(args);
 		this.color = "firebrick";
+		this.name = "Bird";
 	}
 
 	get damage() {
