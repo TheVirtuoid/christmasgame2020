@@ -64,7 +64,7 @@ export default class Play extends Screen {
 		this.scoreTimer = setInterval(this.incrementScore.bind(this), 10);
 		let frequencyIndex = 0;
 		let masterTimer = null;
-		let count = 10;
+		let count = 10000;
 		masterTimer = setInterval( _dropItem, this.frequency[frequencyIndex], this);
 
 		function _dropItem(self) {
@@ -76,7 +76,11 @@ export default class Play extends Screen {
 				santa: self.santa
 			});
 			item.drop(self.playground.left + Math.floor(Math.random() * self.playground.width), self.speed[Math.floor(Math.random() * self.speed.length)]);
-			console.log(count);
+			if (self.scoreboard.health.score <= 0) {
+				clearInterval(masterTimer);
+				self.endDropping();
+				return;
+			}
 			count--;
 			if (count === 0) {
 				clearInterval(masterTimer);
