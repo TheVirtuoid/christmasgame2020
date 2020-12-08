@@ -3,15 +3,17 @@ import Reindeer from "./Reindeer.js";
 
 export default class Santa {
 	constructor (args) {
-		const { renderer, top, left } = args;
-		this.renderer = renderer;
+		const { top, left, screen } = args;
+		this.renderer = screen.renderer;
 		this.top = top;
 		this.left = left;
+		this.screen = screen;
 		const color = "brown";
 		const width = 10;
 		const height = 18;
 		const rLeft = 0;
 		const rRight = width + 2;
+		const renderer = this.renderer;
 		this.reindeer = [
 			{ name: "Dasher", deltaLeft: rLeft, deltaTop: 0, deer: new Reindeer({ renderer, color, width, height, top: this.top, left: this.left }) },
 			{ name: "Dancer", deltaLeft: rRight, deltaTop: 0, deer: new Reindeer({ renderer, color, width, height, top: this.top, left: this.left + rRight }) },
@@ -33,6 +35,9 @@ export default class Santa {
 		this.health = 100;
 		this.width = this.sleigh.width;
 		this.height = height * 4 + 8 + this.sleigh.height;
+		this.speed = 1;
+		this.action = null;
+		this.boundedMouseMove = this.move.bind(this);
 	}
 
 	draw(top, left) {
@@ -49,4 +54,45 @@ export default class Santa {
 		this.sleigh.erase(top + 80, left);
 	}
 
+	start() {
+		this.action = {
+			top: this.top,
+			left: this.left,
+			timing: this.speed,
+			futureTop: this.top,
+			futureLeft: this.left
+		}
+		this.renderer.canvas.addEventListener('mousemove', this.boundedMouseMove);
+	}
+
+	stop() {
+		this.action = null;
+		this.renderer.canvas.removeEventListener('mousemove', this.boundedMouseMove);
+	}
+
+	move(event) {
+		const { offsetX, offsetY } = event;
+		if (offsetX !== this.action.futureLeft || offsetY !== this.action.futureTop) {
+			const { top, left, width, height } = this.screen.playground;
+			if (offsetX >= left && offsetX <= left + width && offsetY >= top && offsetY <= top + height) {
+				this.action.futureTop = offsetY;
+				this.action.futureLeft = offsetX;
+			}
+		}
+	}
+
+	moveSanta(timing) {
+		if (this.action) {
+			this.action.timing --;
+			if (this.action.timing === 0) {
+				this.erase(this.action.top, this.action.left);
+				this.draw(this.action.futureTop, this.action.futureLeft);
+				this.action.top = this.action.futureTop;
+				this.action.left = this.action.futureLeft;
+				this.action.timing = this.speed;
+				this.top = this.action.futureTop;
+				this.left = this.action.futureLeft;
+			}
+		}
+	}
 }

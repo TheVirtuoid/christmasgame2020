@@ -10,61 +10,44 @@ export default class Play extends Screen {
 	constructor(args) {
 		super(args);
 		this.santa = new Santa({
-			renderer: this.renderer,
 			top: 200,
-			left: 100
+			left: 100,
+			screen: this
 		});
-		this.boundMoveFunction = this.move.bind(this);
-		this.boundKeyFunction = this.stop.bind(this);
 		this.action = null;
-		this.moveEnabled = false;
-		this.oldMousePos = { top: this.santa.top, left: this.santa.left };
-
 		this.badItems = [Airplane, Balloon, Bird, Meteor, Ufo];
 		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500];
-		this.speed = [5000, 5000, 5000, 5000, 5000, 4000, 4000, 3000, 3000, 2000, 1000];
-
+		this.speed = [5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1];
 		this.scoreTimer = null;
+
+		this.items = [];
 	}
 
 	start() {
 		this.playground.add(this.santa);
 		this.scoreboard.draw();
 		this.playground.draw();
-		if (!this.moveEnabled) {
-			this.renderer.canvas.addEventListener('mousemove', this.boundMoveFunction);
-			// document.addEventListener('keyup', this.boundKeyFunction);
-			this.moveEnabled = true;
-		}
+		this.santa.start();
+		requestAnimationFrame(this.frame.bind(this));
 		setTimeout(this.beginDropping.bind(this), 2000);
 	}
 
-	stop (event) {
-		if (this.moveEnabled) {
-			this.renderer.canvas.removeEventListener('mousemove', this.boundMoveFunction);
-			document.removeEventListener('keyup', this.boundKeyFunction);
-			this.moveEnabled = false;
-		}
-		console.log("----------------------------ALL DONE!!!!!");
+	frame(timing) {
+		this.santa.moveSanta(timing);
+		this.items.forEach( item => item.move(timing));
+		requestAnimationFrame(this.frame.bind(this));
 	}
 
-	move(event) {
-		const { offsetX, offsetY } = event;
-		if (offsetX >= this.playground.left && offsetX <= this.playground.left + this.playground.width &&
-		offsetY >= this.playground.top && offsetY <= this.playground.top + this.playground.height) {
-			this.santa.left = offsetX;
-			this.santa.top = offsetY;
-			this.santa.erase(this.oldMousePos.top, this.oldMousePos.left);
-			this.santa.draw(offsetY, offsetX);
-			this.oldMousePos = { top: offsetY, left: offsetX };
-		}
+	stop (event) {
+		this.santa.stop();
+		console.log("----------------------------ALL DONE!!!!!");
 	}
 
 	beginDropping() {
 		this.scoreTimer = setInterval(this.incrementScore.bind(this), 10);
 		let frequencyIndex = 0;
 		let masterTimer = null;
-		let count = 10000;
+		let count = 200;
 		masterTimer = setInterval( _dropItem, this.frequency[frequencyIndex], this);
 
 		function _dropItem(self) {
@@ -75,7 +58,7 @@ export default class Play extends Screen {
 				screen: self,
 				santa: self.santa
 			});
-			item.drop(self.playground.left + Math.floor(Math.random() * self.playground.width), self.speed[Math.floor(Math.random() * self.speed.length)]);
+			item.start(self.playground.left + Math.floor(Math.random() * self.playground.width), self.speed[Math.floor(Math.random() * self.speed.length)]);
 			if (self.scoreboard.health.score <= 0) {
 				clearInterval(masterTimer);
 				self.endDropping();
@@ -102,4 +85,15 @@ export default class Play extends Screen {
 	incrementScore() {
 		this.addScore(1);
 	}
+
+	addItem(item) {
+		this.items.push(item);
+		console.log(`--pushed item ${item.boxId}`);
+	}
+
+	removeItem(item) {
+		this.items = this.items.filter( fallingItem => fallingItem.boxId !== item.boxId);
+		console.log(`--removed item ${item.boxId}`);
+	}
+
 }
