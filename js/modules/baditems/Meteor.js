@@ -6,10 +6,10 @@ export default class Meteor extends Box {
 		this.color = "crimson";
 		this.name = "Meteor";
 		this.image = this.screen.playground.assets.meteor;
-		this.image.height = 30;
-		this.image.width = 30;
-		this.height = 30;
-		this.width = 30;
+		this.image.height = 50;
+		this.image.width = 61;
+		this.height = 50;
+		this.width = 61;
 	}
 
 	get damage() {
