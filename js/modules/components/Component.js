@@ -11,6 +11,7 @@ export default class Component {
 		this.left = left;
 		this.height = height;
 		this.justify = justify;
+		this.image = null;
 	}
 
 	draw(text, top = this.top, left = this.left) {
@@ -37,6 +38,15 @@ export default class Component {
 			color: this.color,
 			pos: { left, top, width: this.width, height: this.height }
 		});
+	}
+
+	drawImage(top, left) {
+		top = top ? top : this.top;
+		left = left ? left: this.left;
+		this.renderer.drawImage({
+			image: this.image,
+			pos: { left, top, width: this.width, height: this.height }
+		})
 	}
 
 

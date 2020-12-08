@@ -20,7 +20,11 @@ export default class Box extends Component {
 	draw(top, left) {
 		top = top ? top : this.top;
 		left = left ? left : this.left;
-		super.drawFill(top, left);
+		if (this.image) {
+			super.drawImage(top, left);
+		} else {
+			super.drawFill(top, left);
+		}
 	}
 
 	erase(top, left) {

@@ -47,7 +47,7 @@ export default class Play extends Screen {
 		this.scoreTimer = setInterval(this.incrementScore.bind(this), 10);
 		let frequencyIndex = 0;
 		let masterTimer = null;
-		let count = 200;
+		let count = 20;
 		masterTimer = setInterval( _dropItem, this.frequency[frequencyIndex], this);
 
 		function _dropItem(self) {

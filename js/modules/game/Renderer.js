@@ -28,6 +28,11 @@ export default class Renderer {
 		this.ctx.fillRect(pos.left, pos.top, pos.width, pos.height)
 	}
 
+	drawImage(args) {
+		const { image, pos } = args;
+		this.ctx.drawImage(image, pos.left, pos.top, pos.width, pos.height);
+	}
+
 	erase(args) {
 		const { top, left, width, height } = args;
 		this.ctx.fillStyle = "black";

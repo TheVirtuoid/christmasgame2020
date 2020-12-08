@@ -5,6 +5,12 @@ export default class Airplane extends Box {
 		super(args);
 		this.color = "darkred";
 		this.name = "Airplane";
+		this.image = new Image();
+		this.image.src = "/img/airplane.png";
+		this.image.height = 30;
+		this.image.width = 30;
+		this.height = 30;
+		this.width = 30;
 	}
 
 	get damage() {
