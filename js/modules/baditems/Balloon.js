@@ -5,6 +5,7 @@ export default class Balloon extends Box {
 		super(args);
 		this.color = "LightSalmon";
 		this.name = "Balloon";
+		this.image = this.screen.playground.assets.balloon;
 	}
 
 	get damage() {

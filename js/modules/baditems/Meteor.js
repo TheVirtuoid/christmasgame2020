@@ -5,8 +5,7 @@ export default class Meteor extends Box {
 		super(args);
 		this.color = "crimson";
 		this.name = "Meteor";
-		this.image = new Image();
-		this.image.src = "/img/meteor.png";
+		this.image = this.screen.playground.assets.meteor;
 		this.image.height = 30;
 		this.image.width = 30;
 		this.height = 30;

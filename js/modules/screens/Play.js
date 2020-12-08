@@ -19,11 +19,18 @@ export default class Play extends Screen {
 		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500];
 		this.speed = [5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1];
 		this.scoreTimer = null;
-
 		this.items = [];
+		this.images = {
+			bad: ['airplane2', 'balloon', 'bird', 'meteor', 'ufo']
+		}
 	}
 
 	start() {
+		this.images.bad.forEach( img => {
+			const image = new Image();
+			image.src = `/img/${img}.png`;
+			this.playground.addAsset(img, image);
+		})
 		this.playground.add(this.santa);
 		this.scoreboard.draw();
 		this.playground.draw();

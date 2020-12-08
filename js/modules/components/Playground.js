@@ -7,6 +7,7 @@ export default class Playground {
 		this.height = height;
 		this.renderer = renderer;
 		this.components = [];
+		this.assets = {};
 	}
 
 	draw() {
@@ -19,5 +20,9 @@ export default class Playground {
 
 	add(component) {
 		this.components.push(component);
+	}
+
+	addAsset(name, asset) {
+		this.assets[name] = asset;
 	}
 }

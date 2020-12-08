@@ -5,12 +5,11 @@ export default class Airplane extends Box {
 		super(args);
 		this.color = "darkred";
 		this.name = "Airplane";
-		this.image = new Image();
-		this.image.src = "/img/airplane.png";
-		this.image.height = 30;
-		this.image.width = 30;
-		this.height = 30;
-		this.width = 30;
+		this.image = this.screen.playground.assets.airplane2;
+		this.image.height = 50;
+		this.image.width = 50;
+		this.height = 50;
+		this.width = 50;
 	}
 
 	get damage() {
@@ -28,4 +27,5 @@ export default class Airplane extends Box {
 		left = left ? left : this.left;
 		super.erase(top, left);
 	}
+
 }
