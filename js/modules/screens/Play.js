@@ -17,7 +17,6 @@ export default class Play extends Screen {
 		this.action = null;
 		this.badItems = [Airplane, Balloon, Bird, Meteor, Ufo];
 		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500];
-		// this.speed = [5000, 5000, 5000, 5000, 5000, 4000, 4000, 3000, 3000, 2000, 1000];
 		this.speed = [5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1];
 		this.scoreTimer = null;
 

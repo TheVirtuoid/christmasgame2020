@@ -34,13 +34,10 @@ export default class Box extends Component {
 		this.action = {
 			top: this.top,
 			left: left,
-			// timing: this.speed,
 			timing: 1,
 			futureTop: this.top,
-			// distance: Math.ceil(this.screen.playground.height / (time / this.speed))
 			distance: Math.ceil(this.screen.playground.height / time / this.speed)
 		}
-		// console.log(this.action, this.screen.playground.height);
 		this.screen.addItem(this);
 	}
 
@@ -72,48 +69,6 @@ export default class Box extends Component {
 			}
 		}
 	}
-
-/*
-	drop(left, time = 5000) {
-		left = left ? left : this.left;
-		this.dropTimer = {
-			count: 500,
-			distance: Math.ceil(this.screen.playground.height / (time / this.incrementTiming)),
-			top: this.top,
-			left: left,
-			handle: null,
-			oldTop: this.top,
-			oldLeft: left
-		};
-		this.dropTimer.handle = setInterval(this.dropIncrement.bind(this), this.incrementTiming);
-	}
-
-	dropIncrement() {
-		this.erase(this.dropTimer.oldTop, this.dropTimer.oldLeft);
-		if (!this.hit()) {
-			this.draw(this.dropTimer.top, this.dropTimer.left);
-			if (this.dropTimer.top > this.dropRange) {
-				clearInterval(this.dropTimer.handle);
-				this.dropTimer = null;
-			} else {
-				this.dropTimer.count--;
-				if (this.dropTimer.count === 0) {
-					clearInterval(this.dropTimer.handle);
-					this.dropTimer = null;
-				} else {
-					this.dropTimer.oldTop = this.dropTimer.top;
-					this.dropTimer.oldLeft = this.dropTimer.left;
-					this.dropTimer.top += this.dropTimer.distance;
-				}
-			}
-		} else {
-			const damage = this.damage;
-			console.log(`*** You got hit by a ${this.name} dealing ${damage} damage.`);
-			this.screen.subtractHealth(damage);
-			// this.scoreboard.subtractHealth(damage);
-		}
-	}
-*/
 
 	hit () {
 		const { top, left, width, height } = this.santa;
