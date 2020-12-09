@@ -82,29 +82,9 @@ export default class Box extends Component {
 		const th = top + height;
 		const lw = left + width;
 
+		const noWidthHit =  left > d.left + this.width || left + width < d.left;
+		const noHeightHit = top > d.top + this.height || top + height < d.top;
 
-
-
-
-
-		const hitTop = d.top >= top && d.top <= th;
-		const hitBottom = dth >= top && dth <= th;
-		const hitLeft = d.left >= left && d.left <= lw;
-		const hitRight = dlw >= left && dlw <= lw;
-		if (d.top > top && d.top <= th && this.boxId === 19) {
-			const gotHit = isHit(
-					{ x: { min: left, max: lw }, y: { min: top, max: th } },
-					{ x: { min: d.left, max: dlw }, y: { min: d.top, max: dlw }}
-			);
-			console.log(gotHit);
-			console.log(`id=${this.boxId}: d=${d.top},${d.left},${this.height},${this.width}, s=${top},${left},${height},${width}, Results: hr=${hitRight}, hl=${hitLeft}, ht=${hitTop}, hb=${hitBottom}, FINAL: ${hitRight || hitLeft},${hitTop || hitBottom}`);
-		}
-		return ((hitRight || hitLeft) && (hitTop || hitBottom));
-		function isOverlapping1D(box1,box2) {
-			return box1.max >= box2.min && box2.max >= box1.min;
-		}
-		function isHit(box1,box2) {
-			return isOverlapping1D(box1.x, box2.x) && isOverlapping1D(box1.y, box2.y)
-		}
+		return !noWidthHit && !noHeightHit;
 	}
 }
