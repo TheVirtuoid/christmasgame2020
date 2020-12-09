@@ -85,6 +85,14 @@ export default class Box extends Component {
 		const hitBottom = dth >= top && dth <= th;
 		const hitLeft = d.left >= left && d.left <= lw;
 		const hitRight = dlw >= left && dlw <= lw;
+		if (d.top > top && d.top <= th) {
+			console.log(`id=${this.boxId}: d=${d.top},${d.left},${this.height},${this.width}, s=${top},${left},${height},${width}, Results: hr=${hitRight}, hl=${hitLeft}, ht=${hitTop}, hb=${hitBottom}, FINAL: ${hitRight || hitLeft},${hitTop || hitBottom}`);
+		}
 		return ((hitRight || hitLeft) && (hitTop || hitBottom));
+		box1 = (xmin1, xmax1)
+		box2 = (xmin2, xmax2)
+		function isOverlapping1D(box1,box2) {
+			return box1.xmax1 >= box2.xmin2 && box2.xmax2 >= box1.xmin1;
+		}
 	}
 }
