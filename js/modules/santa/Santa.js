@@ -70,14 +70,21 @@ export default class Santa {
 		this.renderer.canvas.removeEventListener('mousemove', this.boundedMouseMove);
 	}
 
+	addHealth(number) {
+		this.health += number;
+		console.log(this.health);
+	}
+
 	move(event) {
-		const { offsetX, offsetY } = event;
+		let { offsetX, offsetY } = event;
 		if (offsetX !== this.action.futureLeft || offsetY !== this.action.futureTop) {
 			const { top, left, width, height } = this.screen.playground;
-			if (offsetX >= left && offsetX <= left + width && offsetY >= top && offsetY <= top + height) {
-				this.action.futureTop = offsetY;
-				this.action.futureLeft = offsetX;
-			}
+			const limitX = left + width - this.width;
+			const limitY = top + height - this.height;
+			offsetX = offsetX < left ? left : offsetX > limitX ? limitX : offsetX;
+			offsetY = offsetY < top ? top : offsetY > limitY ? limitY : offsetY;
+			this.action.futureTop = offsetY;
+			this.action.futureLeft = offsetX;
 		}
 	}
 

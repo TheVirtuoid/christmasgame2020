@@ -65,7 +65,7 @@ export default class Play extends Screen {
 				screen: self,
 				santa: self.santa
 			});
-			item.start(self.playground.left + Math.floor(Math.random() * self.playground.width), self.speed[Math.floor(Math.random() * self.speed.length)]);
+			item.start(self.playground.left + Math.floor(Math.random() * (self.playground.width - item.width)), self.speed[Math.floor(Math.random() * self.speed.length)]);
 			if (self.scoreboard.health.score <= 0) {
 				clearInterval(masterTimer);
 				self.endDropping();
