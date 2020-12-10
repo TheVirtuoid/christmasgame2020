@@ -32,9 +32,14 @@ export default class Intro extends Screen {
 		this.playground.draw();
 	}
 
+	stop() {
+		this.playground.erase();
+	}
+
 	processStartButton(event) {
 		console.log('GOT THE CLICK EVENT');
 		console.log(event);
-		this.playground.erase();
+		this.game.switchScreens('play');
+		// this.playground.erase();
 	}
 }

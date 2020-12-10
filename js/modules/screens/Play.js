@@ -23,6 +23,14 @@ export default class Play extends Screen {
 		this.images = {
 			bad: ['airplane2', 'balloon', 'bird', 'meteor', 'ufo']
 		}
+		this.sounds = {
+			'drop': new Audio('/sounds/drop.wav'),
+			'Balloon': new Audio('/sounds/meteor.ogg'),
+			'UFO': new Audio('/sounds/UFO.wav'),
+			'Meteor': new Audio('/sounds/meteor.ogg'),
+			'Bird': new Audio('/sounds/bird.mp3'),
+			'Airplane': new Audio('/sounds/airplane2.wav')
+		}
 		this.droppingTimer = null;
 	}
 
