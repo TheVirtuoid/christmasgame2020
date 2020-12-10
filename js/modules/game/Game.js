@@ -2,6 +2,8 @@ import Intro from "./../screens/Intro.js";
 import Play from "../screens/Play.js";
 import GameOver from "../screens/GameOver.js";
 import Renderer from "./Renderer.js";
+import Scoreboard from "../components/Scoreboard.js";
+import {borders, fontSizes} from "./params.js";
 
 export default class Game {
 	constructor () {
@@ -17,6 +19,12 @@ export default class Game {
 		ctx.textBaseline = "top";
 		ctx.fillStyle = "yellow";
 
+		const sTop = borders.top;
+		const sHeight = fontSizes[18].height + fontSizes[20].height;
+		const sWidth = renderer.width - borders.left - borders.right;
+		const left = borders.left;
+
+		this.scoreboard = new Scoreboard({ renderer, width: sWidth, left, top: sTop, height: sHeight });
 		this.renderer = renderer;
 		this.currentScreen = null;
 		this.screens = {

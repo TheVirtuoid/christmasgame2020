@@ -14,7 +14,8 @@ export default class Screen {
 		const pTop = sHeight + sTop;
 		const pHeight = this.renderer.height - borders.bottom - sHeight - borders.top;
 		this.playground = new Playground({ renderer: this.renderer, width, left, top: pTop, height: pHeight });
-		this.scoreboard = new Scoreboard({ renderer: this.renderer, width, left, top: sTop, height: sHeight });
+		// this.scoreboard = new Scoreboard({ renderer: this.renderer, width, left, top: sTop, height: sHeight });
+		this.scoreboard = this.game.scoreboard;
 	}
 
 	addScore(value) {

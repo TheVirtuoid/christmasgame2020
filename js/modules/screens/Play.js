@@ -10,19 +10,20 @@ export default class Play extends Screen {
 	constructor(args) {
 		super(args);
 		this.santa = new Santa({
-			top: 200,
-			left: 100,
+			top: this.playground.height / 2,
+			left: this.playground.width / 2,
 			screen: this
 		});
 		this.action = null;
 		this.badItems = [Airplane, Balloon, Bird, Meteor, Ufo];
-		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500];
+		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300, 250];
 		this.speed = [5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1];
 		this.scoreTimer = null;
 		this.items = [];
 		this.images = {
 			bad: ['airplane2', 'balloon', 'bird', 'meteor', 'ufo']
 		}
+		this.droppingTimer = null;
 	}
 
 	start() {
@@ -42,20 +43,24 @@ export default class Play extends Screen {
 	frame(timing) {
 		this.santa.moveSanta(timing);
 		this.items.forEach( item => item.move(timing));
-		requestAnimationFrame(this.frame.bind(this));
+		if (this.scoreboard.health.score <= 0) {
+			this.subtractHealth(this.scoreboard.health.score);
+			clearInterval(this.droppingTimer);
+			this.endDropping();
+			this.game.switchScreens('gameover');
+		} else {
+			requestAnimationFrame(this.frame.bind(this));
+		}
 	}
 
-	stop (event) {
-		this.santa.stop();
-		console.log("----------------------------ALL DONE!!!!!");
-	}
+	stop (event) {}
 
 	beginDropping() {
 		this.scoreTimer = setInterval(this.incrementScore.bind(this), 10);
 		let frequencyIndex = 0;
-		let masterTimer = null;
-		let count = 20;
-		masterTimer = setInterval( _dropItem, this.frequency[frequencyIndex], this);
+		this.droppingTimer = null;
+		let count = 2000000;
+		this.droppingTimer = setInterval( _dropItem, this.frequency[frequencyIndex], this);
 
 		function _dropItem(self) {
 			const item = new self.badItems[Math.floor(Math.random() * self.badItems.length)]({
@@ -66,27 +71,31 @@ export default class Play extends Screen {
 				santa: self.santa
 			});
 			item.start(self.playground.left + Math.floor(Math.random() * (self.playground.width - item.width)), self.speed[Math.floor(Math.random() * self.speed.length)]);
-			if (self.scoreboard.health.score <= 0) {
-				clearInterval(masterTimer);
-				self.endDropping();
-				return;
-			}
 			count--;
 			if (count === 0) {
-				clearInterval(masterTimer);
+				clearInterval(self.droppingTimer);
 				self.endDropping();
 			} else if (count % 10 === 0) {
 				frequencyIndex++;
 				frequencyIndex = Math.min(frequencyIndex, self.frequency.length - 1);
-				clearInterval(masterTimer);
-				masterTimer = setInterval( _dropItem, self.frequency[frequencyIndex], self);
+				clearInterval(self.droppingTimer);
+				self.droppingTimer = setInterval( _dropItem, self.frequency[frequencyIndex], self);
 			}
 		}
 
 	}
 	endDropping() {
-		console.log('---------GMAE OVER');
+		this.allDone = true;
+		const items = this.items.map( item => item.boxId);
+		console.log(items);
 		clearInterval(this.scoreTimer);
+		items.forEach( boxId => {
+			const item = this.items.find( item => item.boxId === boxId);
+			item.erase(item.action.top, item.action.left);
+			item.stop();
+		});
+		this.santa.stop();
+		this.santa.erase();
 	}
 
 	incrementScore() {
