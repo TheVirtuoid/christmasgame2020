@@ -46,4 +46,10 @@ export default class Scoreboard {
 	subtractHealth(health) {
 		this.health.add(health * -1);
 	}
+
+	setHighScore(value, initials) {
+		this.highScore.score = value;
+		this.highScore.initials = initials;
+		this.highScore.draw();
+	}
 }

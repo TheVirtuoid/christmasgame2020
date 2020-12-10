@@ -3,6 +3,8 @@ import Play from "../screens/Play.js";
 import GameOver from "../screens/GameOver.js";
 import Renderer from "./Renderer.js";
 import Scoreboard from "../components/Scoreboard.js";
+import HighScores from "./HighScores.js";
+import HighScoreScreen from "../screens/HighScoreScreen.js";
 import {borders, fontSizes} from "./params.js";
 
 export default class Game {
@@ -25,12 +27,18 @@ export default class Game {
 		const left = borders.left;
 
 		this.scoreboard = new Scoreboard({ renderer, width: sWidth, left, top: sTop, height: sHeight });
+		this.highScores = new HighScores();
 		this.renderer = renderer;
 		this.currentScreen = null;
+		const highScore = this.highScores.scores[0];
+		highScore.score = 24601;
+		highScore.initials = 'MPS';
+		this.scoreboard.setHighScore(highScore.score, highScore.initials);
 		this.screens = {
 			"intro": new Intro({ game: this }),
 			"play": new Play({ game: this }),
-			"gameover": new GameOver({ game: this })
+			"gameover": new GameOver({ game: this }),
+			"highscore": new HighScoreScreen({ game: this })
 		};
 
 	}

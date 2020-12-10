@@ -1,9 +1,22 @@
 export default class HighScores {
 	constructor() {
-		this.scores = [
-			null, null, null, null, null,
-			null, null, null, null, null
-		]
+		if (localStorage.highScores) {
+			this.scores = JSON.parse(localStorage.highScores);
+		} else {
+			this.scores = [
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' },
+				{ score: 0, initials: 'AAA' }
+			]
+			localStorage.highScores = JSON.stringify(this.scores);
+		}
 	}
 
 	setHighScore(score) {
@@ -14,6 +27,7 @@ export default class HighScores {
 			this.scores = this.scores.splice(index, 0, { score, initials });
 			this.scores.pop();  // remove 11th score
 		}
+		localStorage.highScores = JSON.stringify(this.scores);
 		return index;
 	}
 

@@ -16,7 +16,8 @@ export default class Component {
 
 	draw(text, top = this.top, left = this.left) {
 		const textLength = text.length * this.renderer.fontSizes[this.size].width;
-		const additive = this.justify === "left" ? 0 : this.justify === "center" ? (this.width - textLength) / 2 : 0;
+		// const additive = this.justify === "left" ? 0 : this.justify === "center" ? (this.width - textLength) / 2 : 0;
+		const additive = justify(textLength, this.width, this.justify);
 		const pos = {
 			x: left + additive,
 			y: top
@@ -29,6 +30,18 @@ export default class Component {
 			pos: pos,
 			maxLength: textLength
 		});
+
+		function justify(textLength, width, type = "center") {
+			if (type === 'left') {
+				return 0;
+			} else if (type === 'center') {
+				return (width - textLength) / 2;
+			} else if (type === 'right') {
+				return width - textLength
+			} else {
+				return 0;
+			}
+		}
 	}
 
 	drawFill(top, left) {

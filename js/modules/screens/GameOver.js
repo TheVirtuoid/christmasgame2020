@@ -21,4 +21,8 @@ export default class GameOver extends Screen {
 		this.playground.draw();
 	}
 
+	stop() {
+		this.playground.erase();
+	}
+
 }

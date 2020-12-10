@@ -26,4 +26,8 @@ export default class Screen {
 		this.scoreboard.subtractHealth(value);
 	}
 
+	setHighScore(value, initials) {
+		this.scoreboard.setHighScore(value, initials);
+	}
+
 }

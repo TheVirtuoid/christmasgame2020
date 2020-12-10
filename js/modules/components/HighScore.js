@@ -5,13 +5,15 @@ import { fontSizes, borders } from "./../game/params.js";
 
 export default class HighScore {
 	constructor(args) {
-		const { renderer, top, left, height, width } = args;
+		const { renderer, top, left, height, width, score = 0, initials = 'AAA' } = args;
 		const size = { text: 18, score: 20 };
 		this.renderer = renderer;
 		this.left = left;
 		this.top = top;
 		this.width = width;
 		this.height = height;
+		this.score = score;
+		this.initials = initials;
 		this.theText = new ScoreBoardComponent({
 			renderer,
 			top,
@@ -45,6 +47,6 @@ export default class HighScore {
 	}
 
 	drawScore() {
-		this.theScore.draw("00000 AAA");
+		this.theScore.draw(`${this.score} ${this.initials}`);
 	}
 }
