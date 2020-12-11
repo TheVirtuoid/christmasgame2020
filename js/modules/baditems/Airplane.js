@@ -5,7 +5,6 @@ export default class Airplane extends Box {
 		super(args);
 		this.color = "darkred";
 		this.name = "Airplane";
-		this.image = this.screen.playground.assets.airplane2;
 		this.image.height = 50;
 		this.image.width = 50;
 		this.height = 50;

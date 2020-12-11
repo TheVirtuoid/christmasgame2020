@@ -3,10 +3,8 @@ import Component from "./Component.js";
 export default class Text extends Component {
 	constructor(args) {
 		super(args);
-		this.color = "white";
-		this.font = "Courier New, monospace";
-		this.justify = "center";
-		this.text = args.text;
+		const { text = "" } = args;
+		this.text = text;
 	}
 
 	draw() {

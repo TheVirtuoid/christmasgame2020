@@ -12,7 +12,6 @@ export default class HighScoreScreen extends Screen {
 			width: this.playground.width,
 			height: fontSizes[40].height,
 			size: 40,
-			justify: 'center',
 			text: "HIGH SCORES"
 		});
 		this.playground.add(this.hsText);
@@ -21,9 +20,9 @@ export default class HighScoreScreen extends Screen {
 
 	update() {
 		let top = this.playground.top + 100;
-		const halfWidth = this.playground.width / 2;
+		const halfWidth = this.playground.width / 2 - 10;
 		const scoreLeft = 0;
-		const initialsLeft = halfWidth + 10;
+		const initialsLeft = halfWidth + 20;
 		const height = fontSizes[30].height;
 		this.game.highScores.scores.forEach( score => {
 			let text = new Text({

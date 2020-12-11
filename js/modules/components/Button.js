@@ -1,6 +1,6 @@
 import Component from "./Component.js";
 
-export default class StartButton extends Component {
+export default class Button extends Component {
 	constructor(args) {
 		super(args);
 		this.clickRange = {
@@ -9,11 +9,22 @@ export default class StartButton extends Component {
 			x2: this.left + this.width,
 			y2: this.top + this.height
 		};
-		this.color = "GreenYellow";
-		this.text = "CLICK OR TOUCH TO START";
+		const { text } = args;
+		this.text = text;
 		this.clickActive = false;
 		this.action = null;
 		this.bindedClickFunction = this.processClick.bind(this);
+	}
+
+	processClick(event) {
+		if (typeof this.action === 'function') {
+			const { x1, x2, y1, y2 } = this.clickRange;
+			const hitX = event.offsetX >= x1 && event.offsetX <= x2;
+			const hitY = event.offsetY >= y1 && event.offsetY <= y2;
+			if (hitX && hitY) {
+				this.action(event);
+			}
+		}
 	}
 
 	erase() {
@@ -31,16 +42,4 @@ export default class StartButton extends Component {
 			this.clickActive = true;
 		}
 	}
-
-	processClick (event) {
-		if (typeof this.action === 'function') {
-			const { x1, x2, y1, y2 } = this.clickRange;
-			const hitX = event.offsetX >= x1 && event.offsetX <= x2;
-			const hitY = event.offsetY >= y1 && event.offsetY <= y2;
-			if (hitX && hitY) {
-				this.action(event);
-			}
-		}
-	}
-
 }

@@ -5,14 +5,18 @@ let boxCount = 0;
 export default class Box extends Component {
 	constructor (args) {
 		super(args);
-		this.screen = args.screen;
+		const { screen, santa, image = null, sound = null } = args;
+		this.screen = screen;
+		this.game = this.screen.game;
 		this.width = 30;
 		this.height = 30;
-		this.santa = args.santa;
+		this.santa = santa;
 		this.dropRange = this.screen.playground.height + this.screen.playground.top + borders.top + borders.bottom;
 		this.speed = 100;
 		this.action = null;
 		this.boxId = boxCount;
+		this.image = image;
+		this.sound = sound;
 		boxCount ++;
 
 	}
@@ -79,11 +83,6 @@ export default class Box extends Component {
 	hit () {
 		const { top, left, width, height } = this.santa;
 		const d = this.action;
-		const dth = d.top + this.height;
-		const dlw = d.left + this.width;
-		const th = top + height;
-		const lw = left + width;
-
 		const noWidthHit =  left > d.left + this.width || left + width < d.left;
 		const noHeightHit = top > d.top + this.height || top + height < d.top;
 

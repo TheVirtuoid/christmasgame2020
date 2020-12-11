@@ -16,6 +16,8 @@ export default class Playground {
 
 	erase() {
 		this.components.forEach( component => component.erase() );
+		this.components = [];
+		this.assets = [];
 	}
 
 	add(component) {

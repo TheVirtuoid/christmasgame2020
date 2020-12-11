@@ -20,6 +20,9 @@ export default class Play extends Screen {
 		this.speed = [5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1];
 		this.scoreTimer = null;
 		this.items = [];
+		this.remoteAssets = this.game.loadRemoteAssets();
+		this.badItems = ['airplane', 'balloon', 'bird', 'meteor', 'ufo'];
+/*
 		this.images = {
 			bad: ['airplane2', 'balloon', 'bird', 'meteor', 'ufo']
 		}
@@ -31,6 +34,7 @@ export default class Play extends Screen {
 			'Bird': new Audio('/sounds/bird.mp3'),
 			'Airplane': new Audio('/sounds/airplane2.wav')
 		}
+*/
 		this.droppingTimer = null;
 	}
 
@@ -61,7 +65,9 @@ export default class Play extends Screen {
 		}
 	}
 
-	stop (event) {}
+	stop (event) {
+		this.playground.erase();
+	}
 
 	beginDropping() {
 		this.scoreTimer = setInterval(this.incrementScore.bind(this), 10);
@@ -71,12 +77,16 @@ export default class Play extends Screen {
 		this.droppingTimer = setInterval( _dropItem, this.frequency[frequencyIndex], this);
 
 		function _dropItem(self) {
-			const item = new self.badItems[Math.floor(Math.random() * self.badItems.length)]({
+			const badItemNumber = Math.floor(Math.random() * self.badItems.length);
+			const assetName = self.badItems[badItemNumber];
+			const item = new self.badItems[badItemNumber]({
 				renderer: self.renderer,
 				top: self.playground.top,
 				left: self.playground.left,
 				screen: self,
-				santa: self.santa
+				santa: self.santa,
+				image: self.remoteAssets[assetName].image,
+				sound: self.remoteAssets[assetName].sound
 			});
 			item.start(self.playground.left + Math.floor(Math.random() * (self.playground.width - item.width)), self.speed[Math.floor(Math.random() * self.speed.length)]);
 			count--;
