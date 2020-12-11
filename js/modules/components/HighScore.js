@@ -1,5 +1,4 @@
 import ScoreBoardComponent from "./ScoreBoardComponent.js";
-import Score from "./../game/Score.js";
 import { fontSizes, borders } from "./../game/params.js";
 
 

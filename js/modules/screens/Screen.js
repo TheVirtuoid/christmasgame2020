@@ -1,5 +1,4 @@
 import Playground from "../components/Playground.js";
-import Scoreboard from "../components/Scoreboard.js";
 import { borders, fontSizes } from "../game/params.js";
 
 export default class Screen {
@@ -14,7 +13,6 @@ export default class Screen {
 		const pTop = sHeight + sTop;
 		const pHeight = this.renderer.height - borders.bottom - sHeight - borders.top;
 		this.playground = new Playground({ renderer: this.renderer, width, left, top: pTop, height: pHeight });
-		// this.scoreboard = new Scoreboard({ renderer: this.renderer, width, left, top: sTop, height: sHeight });
 		this.scoreboard = this.game.scoreboard;
 	}
 
