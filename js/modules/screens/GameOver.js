@@ -129,6 +129,8 @@ export default class GameOver extends Screen {
 				];
 			}
 			this.enableHighScoreComponents();
+		} else {
+			setInterval(this.nextScreen.bind(this), 10000);
 		}
 		this.scoreboard.draw();
 		this.playground.draw();
@@ -139,6 +141,9 @@ export default class GameOver extends Screen {
 		this.disableHighScoreComponents();
 	}
 
+	nextScreen() {
+		this.game.switchScreens('intro');
+	}
 
 	processStartButton() {
 		this.game.switchScreens('play');

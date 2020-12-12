@@ -28,7 +28,7 @@ export default class Events {
 		const { offsetX, offsetY } = event;
 		this.actions.forEach( action => {
 			if (typeof action.routine === 'function' && action.check) {
-				console.log(`-----checking ${action.name}`);
+				// console.log(`-----checking ${action.name}`);
 				const { x1, x2, y1, y2 } = action.clickZone;
 				const hitX = offsetX >= x1 && offsetX <= x2;
 				const hitY = offsetY >= y1 && offsetY <= y2;

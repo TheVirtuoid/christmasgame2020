@@ -38,9 +38,27 @@ export default class Intro extends Screen {
 		this.playground.add(runText2);
 		this.playground.add(santaText);
 		this.playground.add(startButton);
+
+		this.timer = null;
 	}
 
 	processStartButton(event) {
+		clearTimeout(this.timer);
+		this.timer = null;
 		this.game.switchScreens('play');
+	}
+
+	start() {
+		super.start();
+		this.timer = setTimeout( this.nextScreen.bind(this), 5000);
+	}
+
+	nextScreen() {
+		this.timer = null;
+		this.game.switchScreens('highscore');
+	}
+
+	stop() {
+		this.playground.erase();
 	}
 }
