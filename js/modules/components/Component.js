@@ -1,6 +1,9 @@
+import { fontSizes } from "../game/params.js";
+
 export default class Component {
 	constructor(args) {
-		const { renderer, top, width, left, height, size, color = "white", font = "Courier New, monospace", justify = "center", image = null, sound = null } = args;
+		const { game, renderer, top, width, left, height, size, color = "white", font = "Courier New, monospace", justify = "center", image = null, sound = null } = args;
+		this.game = game;
 		this.renderer = renderer;
 		this.pos = { x: 0, y: 0};
 		this.color = color;
@@ -31,6 +34,7 @@ export default class Component {
 			pos: pos,
 			maxLength: textLength
 		});
+		return { x1: pos.x, y1: pos.y, x2: fontSizes[this.size].width * text.length + pos.x, y2: fontSizes[this.size].height + pos.y };
 
 		function justify(textLength, width, type = "center") {
 			if (type === 'left') {

@@ -50,6 +50,7 @@ export default class Game {
 		this.remoteAssets.set('down', { name: 'down', imageUrl: '/img/down.png', soundUrl: null, image: null, sound: null });
 
 		this.events = new Events({ game: this });
+		this.events.start();
 
 		this.screens = {
 			"intro": new Intro({ game: this }),

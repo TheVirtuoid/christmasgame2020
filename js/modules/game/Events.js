@@ -6,8 +6,10 @@ export default class Events {
 		this.boundedClickEvent = this.processClick.bind(this);
 	}
 
-	add(action) {
-		this.actions.push(action);
+	add(actionToAdd) {
+		if (!this.actions.some( action => action.name === actionToAdd.name)) {
+			this.actions.push(actionToAdd);
+		}
 	}
 
 	remove(actionToRemove) {
@@ -26,7 +28,8 @@ export default class Events {
 		const { offsetX, offsetY } = event;
 		this.actions.forEach( action => {
 			if (typeof action.routine === 'function') {
-				const { x1, x2, y1, y2 } = action.clickRange;
+				console.log(`-----checking ${action.name}`);
+				const { x1, x2, y1, y2 } = action.clickZone;
 				const hitX = offsetX >= x1 && offsetX <= x2;
 				const hitY = offsetY >= y1 && offsetY <= y2;
 				if (hitX && hitY) {
