@@ -3,10 +3,12 @@ import Component from "./Component.js";
 export default class Button extends Component {
 	constructor(args) {
 		super(args);
-		const { action, text } = args;
+		const { action = null, text } = args;
 		this.text = text;
 		this.action = action;
-
+		if (this.action) {
+			action.check = true;
+		}
 	}
 
 	erase() {
@@ -16,7 +18,8 @@ export default class Button extends Component {
 
 	draw() {
 		if (this.image) {
-			super.drawImage(this.top, this.left);
+			this.action.clickZone = super.drawImage(this.top, this.left);
+			this.game.events.add(this.action);
 		} else {
 			this.action.clickZone = super.draw(this.text);
 			this.game.events.add(this.action);

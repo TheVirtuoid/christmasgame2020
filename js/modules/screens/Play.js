@@ -108,12 +108,12 @@ export default class Play extends Screen {
 
 	addItem(item) {
 		this.items.push(item);
-		// console.log(`--pushed item ${item.boxId}`);
+		console.log(`--pushed item ${item.boxId}`);
 	}
 
 	removeItem(item) {
 		this.items = this.items.filter( fallingItem => fallingItem.boxId !== item.boxId);
-		// console.log(`--removed item ${item.boxId}`);
+		console.log(`--removed item ${item.boxId}`);
 	}
 
 	addScore(value) {

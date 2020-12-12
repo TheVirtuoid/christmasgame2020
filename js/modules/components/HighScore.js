@@ -25,11 +25,12 @@ export default class HighScore {
 		tTop += tHeight;
 		tHeight = fontSizes[size].height;
 		this.theScore = new Text({ renderer, top: tTop, left, width, height: tHeight, color, size, font, text: `${this.score} ${this.initials}` });
-
 	}
 
 	draw() {
 		this.theText.draw();
+		this.theScore.text = `${this.score} ${this.initials}`;
+		this.theScore.erase();
 		this.theScore.draw();
 	}
 }

@@ -2,7 +2,7 @@ import { fontSizes } from "../game/params.js";
 
 export default class Component {
 	constructor(args) {
-		const { game, renderer, top, width, left, height, size, color = "white", font = "Courier New, monospace", justify = "center", image = null, sound = null } = args;
+		const { game, renderer, top, width, left, height, size, color = "white", font = "Courier New, monospace", justify = "center", image = null, sound = null, noDraw = false } = args;
 		this.game = game;
 		this.renderer = renderer;
 		this.pos = { x: 0, y: 0};
@@ -16,9 +16,13 @@ export default class Component {
 		this.justify = justify;
 		this.image = image;
 		this.sound = sound;
+		this.noDraw = noDraw;
 	}
 
 	draw(text, top = this.top, left = this.left) {
+		if (this.noDraw) {
+			return null;
+		}
 		const textLength = text.length * fontSizes[this.size].width;
 		const additive = justify(textLength, this.width, this.justify);
 		const pos = {
@@ -49,6 +53,9 @@ export default class Component {
 	}
 
 	drawFill(top, left) {
+		if (this.noDraw) {
+			return null;
+		}
 		top = top ? top : this.top;
 		left = left ? left : this.left;
 		this.renderer.drawFill({
@@ -58,12 +65,16 @@ export default class Component {
 	}
 
 	drawImage(top, left) {
+		if (this.noDraw) {
+			return null;
+		}
 		top = top ? top : this.top;
 		left = left ? left: this.left;
 		this.renderer.drawImage({
 			image: this.image,
 			pos: { left, top, width: this.width, height: this.height }
 		})
+		return { x1: left, y1: top, x2: left + this.width, y2: top + this.height };
 	}
 
 
