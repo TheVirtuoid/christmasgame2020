@@ -19,8 +19,7 @@ export default class Component {
 	}
 
 	draw(text, top = this.top, left = this.left) {
-		const textLength = text.length * this.renderer.fontSizes[this.size].width;
-		// const additive = this.justify === "left" ? 0 : this.justify === "center" ? (this.width - textLength) / 2 : 0;
+		const textLength = text.length * fontSizes[this.size].width;
 		const additive = justify(textLength, this.width, this.justify);
 		const pos = {
 			x: left + additive,

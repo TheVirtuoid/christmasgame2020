@@ -43,8 +43,8 @@ export default class Scoreboard {
 		this.scoreCard.add(score);
 	}
 
-	subtractHealth(health) {
-		this.health.add(health * -1);
+	addHealth(health) {
+		this.health.add(health);
 	}
 
 	setHighScore(value, initials) {
@@ -54,7 +54,7 @@ export default class Scoreboard {
 	}
 
 	getScore() {
-		return this.scoreCard.gameScore.score;
+		return this.scoreCard.score;
 	}
 
 	reset() {
