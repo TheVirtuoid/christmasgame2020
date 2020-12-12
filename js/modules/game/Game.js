@@ -5,6 +5,8 @@ import Renderer from "./Renderer.js";
 import Scoreboard from "../components/Scoreboard.js";
 import HighScores from "./HighScores.js";
 import HighScoreScreen from "../screens/HighScoreScreen.js";
+import Events from "./Events.js";
+
 import {borders, fontSizes} from "./params.js";
 
 export default class Game {
@@ -44,6 +46,10 @@ export default class Game {
 		this.remoteAssets.set('bird', { name: 'bird', imageUrl: '/img/bird.png', soundUrl: '/sounds/bird.mp3', image: null, sound: null });
 		this.remoteAssets.set('meteor', { name: 'meteor', imageUrl: '/img/meteor.png', soundUrl: '/sounds/meteor.ogg', image: null, sound: null });
 		this.remoteAssets.set('ufo', { name: 'ufo', imageUrl: '/img/ufo.png', soundUrl: '/sounds/UFO.wav', image: null, sound: null });
+		this.remoteAssets.set('up', { name: 'up', imageUrl: '/img/up.png', soundUrl: null, image: null, sound: null });
+		this.remoteAssets.set('down', { name: 'down', imageUrl: '/img/down.png', soundUrl: null, image: null, sound: null });
+
+		this.events = new Events({ game: this });
 
 		this.screens = {
 			"intro": new Intro({ game: this }),
@@ -64,11 +70,11 @@ export default class Game {
 
 	loadRemoteAssets() {
 		this.remoteAssets.forEach( item  => {
-			if (!item.image) {
+			if (!item.image && item.imageUrl) {
 				item.image = new Image();
 				item.image.src = item.imageUrl;
 			}
-			if(!item.sound) {
+			if(!item.sound && item.soundUrl) {
 				item.sound = new Audio(item.soundUrl);
 			}
 		});

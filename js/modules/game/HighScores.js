@@ -33,4 +33,8 @@ export default class HighScores {
 		}
 	}
 
+	isHighScore(score) {
+		return score >= this.scores[0].score;
+	}
+
 }

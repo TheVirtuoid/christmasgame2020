@@ -3,16 +3,16 @@ import Component from "./Component.js";
 export default class Button extends Component {
 	constructor(args) {
 		super(args);
+		const { action, text } = args;
 		this.clickRange = {
 			x1: this.left,
 			y1: this.top,
 			x2: this.left + this.width,
 			y2: this.top + this.height
 		};
-		const { text } = args;
 		this.text = text;
 		this.clickActive = false;
-		this.action = null;
+		this.action = action;
 		this.bindedClickFunction = this.processClick.bind(this);
 	}
 
@@ -36,7 +36,11 @@ export default class Button extends Component {
 	}
 
 	draw() {
-		super.draw(this.text);
+		if (this.image) {
+			super.drawImage(this.top, this.left);
+		} else {
+			super.draw(this.text);
+		}
 		if (!this.clickActive) {
 			this.renderer.canvas.addEventListener('click', this.bindedClickFunction);
 			this.clickActive = true;

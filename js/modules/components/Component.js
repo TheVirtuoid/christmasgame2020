@@ -1,6 +1,6 @@
 export default class Component {
 	constructor(args) {
-		const { renderer, top, width, left, height, size, color = "white", font = "Courier New, monospace", justify = "center" } = args;
+		const { renderer, top, width, left, height, size, color = "white", font = "Courier New, monospace", justify = "center", image = null, sound = null } = args;
 		this.renderer = renderer;
 		this.pos = { x: 0, y: 0};
 		this.color = color;
@@ -11,7 +11,8 @@ export default class Component {
 		this.left = left;
 		this.height = height;
 		this.justify = justify;
-		this.image = null;
+		this.image = image;
+		this.sound = sound;
 	}
 
 	draw(text, top = this.top, left = this.left) {
