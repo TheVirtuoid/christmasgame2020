@@ -64,7 +64,6 @@ export default class Box extends Component {
 				} else if (!this.hit()) {
 					this.draw(this.action.futureTop, this.action.left);
 					this.action.top = this.action.futureTop;
-					// this.action.timing = this.speed;
 					this.action.timing = 1;
 					this.top = this.action.futureTop;
 				} else {

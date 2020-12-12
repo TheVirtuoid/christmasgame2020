@@ -29,12 +29,16 @@ export default class Health {
 	}
 
 	add(score) {
+		this.theScore.erase();
 		this.score += score;
+		this.theScore.text = this.score.toString();
 		this.theScore.draw();
 	}
 
 	reset() {
+		this.theScore.erase();
 		this.score = 100;
+		this.theScore.text = this.score.toString();
 		this.theScore.draw();
 	}
 }

@@ -25,14 +25,6 @@ export default class Screen {
 		this.playground.clear();
 	}
 
-	addScore(value) {
-		this.scoreboard.addScore(value);
-	}
-
-	subtractHealth(value) {
-		this.scoreboard.subtractHealth(value);
-	}
-
 	setHighScore(value, initials) {
 		this.scoreboard.setHighScore(value, initials);
 	}
