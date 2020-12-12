@@ -52,4 +52,9 @@ export default class ScoreCard {
 		this.gameScore.add(score);
 		this.drawScore();
 	}
+
+	reset() {
+		this.gameScore.score = 0 ;
+		this.drawScore();
+	}
 }

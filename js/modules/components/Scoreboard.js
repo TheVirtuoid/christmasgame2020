@@ -52,4 +52,13 @@ export default class Scoreboard {
 		this.highScore.initials = initials;
 		this.highScore.draw();
 	}
+
+	getScore() {
+		return this.scoreCard.gameScore.score;
+	}
+
+	reset() {
+		this.scoreCard.reset();
+		this.health.reset();
+	}
 }

@@ -5,7 +5,6 @@ export default class Bird extends Box {
 		super(args);
 		this.color = "firebrick";
 		this.name = "Bird";
-		this.image = this.screen.playground.assets.bird;
 		this.image.height = 30;
 		this.image.width = 64;
 		this.height = 30;

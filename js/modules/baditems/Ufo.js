@@ -5,7 +5,6 @@ export default class Ufo extends Box {
 		super(args);
 		this.color = "LightCoral";
 		this.name = "UFO";
-		this.image = this.screen.playground.assets.ufo;
 		this.image.height = 19;
 		this.image.width = 30;
 		this.height = 19;

@@ -6,6 +6,7 @@ import Bird from "../baditems/Bird.js";
 import Meteor from "../baditems/Meteor.js";
 import Ufo from "../baditems/Ufo.js";
 
+
 export default class Play extends Screen {
 	constructor(args) {
 		super(args);
@@ -15,35 +16,19 @@ export default class Play extends Screen {
 			screen: this
 		});
 		this.action = null;
-		this.badItems = [Airplane, Balloon, Bird, Meteor, Ufo];
 		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300, 250];
 		this.speed = [5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1];
 		this.scoreTimer = null;
 		this.items = [];
 		this.remoteAssets = this.game.loadRemoteAssets();
 		this.badItems = ['airplane', 'balloon', 'bird', 'meteor', 'ufo'];
-/*
-		this.images = {
-			bad: ['airplane2', 'balloon', 'bird', 'meteor', 'ufo']
-		}
-		this.sounds = {
-			'drop': new Audio('/sounds/drop.wav'),
-			'Balloon': new Audio('/sounds/meteor.ogg'),
-			'UFO': new Audio('/sounds/UFO.wav'),
-			'Meteor': new Audio('/sounds/meteor.ogg'),
-			'Bird': new Audio('/sounds/bird.mp3'),
-			'Airplane': new Audio('/sounds/airplane2.wav')
-		}
-*/
+		this.assets = {airplane: Airplane, balloon: Balloon, bird: Bird, meteor: Meteor, ufo: Ufo};
 		this.droppingTimer = null;
 	}
 
 	start() {
-		this.images.bad.forEach( img => {
-			const image = new Image();
-			image.src = `/img/${img}.png`;
-			this.playground.addAsset(img, image);
-		})
+		this.playground.clear();
+		this.scoreboard.reset();
 		this.playground.add(this.santa);
 		this.scoreboard.draw();
 		this.playground.draw();
@@ -79,14 +64,15 @@ export default class Play extends Screen {
 		function _dropItem(self) {
 			const badItemNumber = Math.floor(Math.random() * self.badItems.length);
 			const assetName = self.badItems[badItemNumber];
-			const item = new self.badItems[badItemNumber]({
+			const asset = self.remoteAssets.get(assetName);
+			const item = new self.assets[assetName]({
 				renderer: self.renderer,
 				top: self.playground.top,
 				left: self.playground.left,
 				screen: self,
 				santa: self.santa,
-				image: self.remoteAssets[assetName].image,
-				sound: self.remoteAssets[assetName].sound
+				image: asset.image,
+				sound: asset.sound
 			});
 			item.start(self.playground.left + Math.floor(Math.random() * (self.playground.width - item.width)), self.speed[Math.floor(Math.random() * self.speed.length)]);
 			count--;

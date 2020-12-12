@@ -46,7 +46,7 @@ export default class Box extends Component {
 			futureTop: this.top,
 			distance: Math.ceil(this.screen.playground.height / time / this.speed)
 		}
-		this.screen.sounds.drop.play();
+		// this.screen.sounds.drop.play();
 		this.screen.addItem(this);
 	}
 
@@ -71,7 +71,7 @@ export default class Box extends Component {
 					this.top = this.action.futureTop;
 				} else {
 					const damage = this.damage;
-					this.screen.sounds[this.name].play();
+					this.sound.play();
 					console.log(`*** You got hit by a ${this.name} dealing ${damage} damage.`);
 					this.screen.subtractHealth(damage);
 					this.stop();

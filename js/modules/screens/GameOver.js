@@ -1,6 +1,6 @@
 import Screen from "./Screen.js";
 import Text from "./../components/Text.js";
-import { fontSizes } from "./../game/params.js";
+import { fontSizes } from "../game/params.js";
 import Button from "../components/Button.js";
 
 export default class GameOver extends Screen {
@@ -23,6 +23,11 @@ export default class GameOver extends Screen {
 	}
 
 	start() {
+		const gotHighScore = this.game.highScores.setHighScore(this.game.scoreboard.getScore(), 'MPS');
+		console.log(gotHighScore);
+		if (gotHighScore) {
+			this.game.scoreboard.setHighScore(gotHighScore.score, gotHighScore.initials);
+		}
 		this.scoreboard.draw();
 		this.playground.draw();
 	}

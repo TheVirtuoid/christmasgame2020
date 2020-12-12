@@ -38,13 +38,12 @@ export default class Game {
 		const highScore = this.highScores.scores[0];
 		this.scoreboard.setHighScore(highScore.score, highScore.initials);
 
-		this.remoteAssets = [
-			{ name: 'airplane', imageUrl: '/img/airplane2.png', soundUrl: '/sounds/airplane2.wav', image: null, sound: null, width: 50, height: 50 },
-			{ name: 'balloon', imageUrl: '/img/balloon.png', soundUrl: '/sounds/balloon.wav', image: null, sound: null },
-			{ name: 'bird', imageUrl: '/img/bird.png', soundUrl: '/sounds/bird.mp3', image: null, sound: null },
-			{ name: 'meteor', imageUrl: '/img/meteor.png', soundUrl: '/sounds/meteor.ogg', image: null, sound: null },
-			{ name: 'ufo', imageUrl: '/img/ufo.png', soundUrl: '/sounds/UFO.wav', image: null, sound: null },
-		]
+		this.remoteAssets = new Map();
+		this.remoteAssets.set('airplane', { name: 'airplane', imageUrl: '/img/airplane2.png', soundUrl: '/sounds/airplane2.wav', image: null, sound: null });
+		this.remoteAssets.set('balloon', { name: 'balloon', imageUrl: '/img/balloon.png', soundUrl: '/sounds/balloon.wav', image: null, sound: null });
+		this.remoteAssets.set('bird', { name: 'bird', imageUrl: '/img/bird.png', soundUrl: '/sounds/bird.mp3', image: null, sound: null });
+		this.remoteAssets.set('meteor', { name: 'meteor', imageUrl: '/img/meteor.png', soundUrl: '/sounds/meteor.ogg', image: null, sound: null });
+		this.remoteAssets.set('ufo', { name: 'ufo', imageUrl: '/img/ufo.png', soundUrl: '/sounds/UFO.wav', image: null, sound: null });
 
 		this.screens = {
 			"intro": new Intro({ game: this }),
@@ -64,7 +63,7 @@ export default class Game {
 	}
 
 	loadRemoteAssets() {
-		this.remoteAssets.forEach( item => {
+		this.remoteAssets.forEach( item  => {
 			if (!item.image) {
 				item.image = new Image();
 				item.image.src = item.imageUrl;

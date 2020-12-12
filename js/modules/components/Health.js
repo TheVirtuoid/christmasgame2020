@@ -1,6 +1,5 @@
 import ScoreBoardComponent from "./ScoreBoardComponent.js";
-import Score from "./../game/Score.js";
-import { fontSizes, borders } from "./../game/params.js";
+import { fontSizes, borders } from "../game/params.js";
 
 export default class Health {
 	constructor(args) {
@@ -50,6 +49,11 @@ export default class Health {
 
 	add(score) {
 		this.score += score;
+		this.drawScore();
+	}
+
+	reset() {
+		this.score = 100;
 		this.drawScore();
 	}
 }

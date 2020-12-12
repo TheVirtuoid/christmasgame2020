@@ -8,6 +8,7 @@ export default class Playground {
 		this.renderer = renderer;
 		this.components = [];
 		this.assets = {};
+		this.clear();
 	}
 
 	draw() {
@@ -16,8 +17,6 @@ export default class Playground {
 
 	erase() {
 		this.components.forEach( component => component.erase() );
-		this.components = [];
-		this.assets = [];
 	}
 
 	add(component) {
@@ -26,5 +25,10 @@ export default class Playground {
 
 	addAsset(name, asset) {
 		this.assets[name] = asset;
+	}
+
+	clear() {
+		this.components = [];
+		this.assets = {};
 	}
 }

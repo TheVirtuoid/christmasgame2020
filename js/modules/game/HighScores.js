@@ -20,15 +20,17 @@ export default class HighScores {
 	}
 
 	setHighScore(score) {
-		const index = this.scores.findIndex( highScore => null ? true : score > highScore.score);
+		const index = this.scores.findIndex( highScore => score > highScore.score);
 		if (index !== -1) {
 			// get initials
 			const initials = "AAA";
-			this.scores = this.scores.splice(index, 0, { score, initials });
+			this.scores.splice(index, 0, { score, initials });
 			this.scores.pop();  // remove 11th score
+			localStorage.highScores = JSON.stringify(this.scores);
+			return this.scores[index];
+		} else {
+			return null;
 		}
-		localStorage.highScores = JSON.stringify(this.scores);
-		return index;
 	}
 
 }
