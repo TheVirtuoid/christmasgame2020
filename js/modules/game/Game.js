@@ -11,6 +11,9 @@ import Events from "./Events.js";
 import {borders, fontSizes} from "./params.js";
 
 export default class Game {
+	/**
+	 * Construct a new Game. This is a singleton instance and holds the common assets for the game.
+	 */
 	constructor () {
 		const canvas = document.getElementById('pitch');
 		const ctx = canvas.getContext('2d');
@@ -52,7 +55,6 @@ export default class Game {
 		this.remoteAssets.set('reindeer', { name: 'reindeer', imageUrl: 'img/reindeer.png', soundUrl: null, image: null, sound: null });
 		this.remoteAssets.set('santa', { name: 'santa', imageUrl: 'img/santa.png', soundUrl: null, image: null, sound: null });
 
-
 		this.events = new Events({ game: this });
 		this.events.start();
 
@@ -66,6 +68,10 @@ export default class Game {
 
 	}
 
+	/**
+	 * Switch from one screen to another
+	 * @param {String} newScreen = the name of the screen. See this.screens for a complete list.
+	 */
 	switchScreens(newScreen) {
 		if (this.currentScreen !== null) {
 			this.currentScreen.stop();
@@ -74,6 +80,10 @@ export default class Game {
 		this.currentScreen.start();
 	}
 
+	/**
+	 * Load in all the remote assets before gameplay. This isn't done until the first time the 'Play' screen is active.
+	 * @returns {Map<String, Object>} The entire list of remote assets.
+	 */
 	loadRemoteAssets() {
 		this.remoteAssets.forEach( item  => {
 			if (!item.image && item.imageUrl) {
