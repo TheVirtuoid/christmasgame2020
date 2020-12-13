@@ -25,6 +25,8 @@ export default class ScoreCard {
 	}
 
 	draw() {
+		this.theText.erase();
+		this.theScore.erase();
 		this.theText.draw();
 		this.theScore.draw();
 	}

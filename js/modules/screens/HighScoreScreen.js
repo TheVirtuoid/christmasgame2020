@@ -26,8 +26,8 @@ export default class HighScoreScreen extends Screen {
 			game: this.game,
 			renderer: this.renderer,
 			top: this.playground.height - 100,
-			left: this.left,
-			width: this.width,
+			left: this.playground.left,
+			width: this.playground.width,
 			height: fontSizes[20].height,
 			size: 20,
 			text: "CLICK OR TOUCH TO START",
@@ -83,7 +83,7 @@ export default class HighScoreScreen extends Screen {
 
 	nextScreen() {
 		this.timer = null;
-		this.game.switchScreens('intro');
+		this.game.switchScreens('credits');
 	}
 
 	processStartButton() {

@@ -28,6 +28,7 @@ export default class HighScore {
 	}
 
 	draw() {
+		this.theText.erase();
 		this.theText.draw();
 		this.theScore.text = `${this.score} ${this.initials}`;
 		this.theScore.erase();
