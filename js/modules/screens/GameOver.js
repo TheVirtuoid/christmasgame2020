@@ -54,6 +54,7 @@ export default class GameOver extends Screen {
 		this.highScoreComponents = [];
 
 		this.initialized = false;
+		this.timer = null;
 	}
 
 	start() {
@@ -130,7 +131,7 @@ export default class GameOver extends Screen {
 			}
 			this.enableHighScoreComponents();
 		} else {
-			setTimeout(this.nextScreen.bind(this), 10000);
+			this.timer = setTimeout(this.nextScreen.bind(this), 10000);
 		}
 		this.scoreboard.draw();
 		this.playground.draw();
@@ -146,6 +147,7 @@ export default class GameOver extends Screen {
 	}
 
 	processStartButton() {
+		clearTimeout(this.timer);
 		this.game.switchScreens('play');
 	}
 
