@@ -9,29 +9,30 @@ export default class Santa {
 		this.top = top;
 		this.left = left;
 		this.screen = screen;
-		const color = "brown";
-		const width = 10;
-		const height = 18;
+		const width = 12;
+		const height = 16;
 		const rLeft = 0;
 		const rRight = width + 2;
 		const renderer = this.renderer;
+		const image = this.screen.remoteAssets.get('reindeer').image;
 		this.reindeer = [
-			{ name: "Dasher", deltaLeft: rLeft, deltaTop: 0, deer: new Reindeer({ renderer, color, width, height, top: this.top, left: this.left }) },
-			{ name: "Dancer", deltaLeft: rRight, deltaTop: 0, deer: new Reindeer({ renderer, color, width, height, top: this.top, left: this.left + rRight }) },
-			{ name: "Prancer", deltaLeft: rLeft, deltaTop: 20, deer: new Reindeer({ renderer, color, width, height, top: this.top + 20, left: this.left }) },
-			{ name: "Vixen", deltaLeft: rRight, deltaTop: 20, deer: new Reindeer({ renderer, color, width, height, top: this.top + 20, left: this.left + rRight }) },
-			{ name: "Comet", deltaLeft: rLeft, deltaTop: 40, deer: new Reindeer({ renderer, color, width, height, top: this.top + 40, left: this.left }) },
-			{ name: "Cupid", deltaLeft: rRight, deltaTop: 40, deer: new Reindeer({ renderer, color, width, height, top: this.top + 40, left: this.left + rRight }) },
-			{ name: "Donner", deltaLeft: rLeft, deltaTop: 60, deer: new Reindeer({ renderer, color, width, height, top: this.top + 60, left: this.left }) },
-			{ name: "Clyde", deltaLeft: rRight, deltaTop: 60, deer: new Reindeer({ renderer, color, width, height, top: this.top + 60, left: this.left + rRight }) },
+			{ name: "Dasher", deltaLeft: rLeft, deltaTop: 0, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top, left: this.left }) },
+			{ name: "Dancer", deltaLeft: rRight, deltaTop: 0, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top, left: this.left + rRight }) },
+			{ name: "Prancer", deltaLeft: rLeft, deltaTop: 20, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top + 20, left: this.left }) },
+			{ name: "Vixen", deltaLeft: rRight, deltaTop: 20, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top + 20, left: this.left + rRight }) },
+			{ name: "Comet", deltaLeft: rLeft, deltaTop: 40, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top + 40, left: this.left }) },
+			{ name: "Cupid", deltaLeft: rRight, deltaTop: 40, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top + 40, left: this.left + rRight }) },
+			{ name: "Donner", deltaLeft: rLeft, deltaTop: 60, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top + 60, left: this.left }) },
+			{ name: "Clyde", deltaLeft: rRight, deltaTop: 60, deer: new Reindeer({ renderer, screen, image, width, height, top: this.top + 60, left: this.left + rRight }) },
 		]
 		this.sleigh = new Sleigh({
 			renderer,
-			color: "red",
+			screen,
 			top: this.top + 80,
 			left: this.left,
-			width: width * 2 + 2,
-			height: 38
+			width: width * 2 + 5,
+			height: height + 10,
+			image: this.screen.remoteAssets.get('santa').image
 		});
 		this.health = 100;
 		this.width = this.sleigh.width;
