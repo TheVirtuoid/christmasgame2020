@@ -93,13 +93,11 @@ export default class Santa {
 	}
 
 	mobileMove(event) {
-		// console.log('--------mobilemove');
-		// console.log(event);
 		this.device.alpha = event.alpha;
 		this.device.beta = event.beta;
 		this.device.gamma = event.gamma;
-		const offsetY = (this.device.beta + this.device.betaDivisor) * this.device.betaStep + this.device.betaStart;
-		const offsetX = (this.device.gamma + this.device.gammaDivisor) * this.device.gammaStep + this.device.gammaStart;
+		const offsetY = Math.floor((this.device.beta + this.device.betaDivisor) * this.device.betaStep + this.device.betaStart);
+		const offsetX = Math.floor((this.device.gamma + this.device.gammaDivisor) * this.device.gammaStep + this.device.gammaStart);
 		this.move({ offsetX, offsetY });
 	}
 

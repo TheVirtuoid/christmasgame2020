@@ -16,6 +16,36 @@ export default class HighScoreScreen extends Screen {
 			text: "HIGH SCORES"
 		});
 		this.playground.add(this.hsText);
+		this.scoreList = [];
+		let top = this.playground.top + 100;
+		const halfWidth = this.playground.width / 2 - 10;
+		const height = fontSizes[30].height;
+		const size = 30;
+		this.game.highScores.scores.forEach( score => {
+			this.scoreList.push(new Text({
+				renderer: this.renderer,
+				top: top,
+				left: 0,
+				width: halfWidth,
+				height: height,
+				size: size,
+				justify: 'right',
+				text: score.score.toString()
+			}));
+			this.scoreList.push(new Text({
+				renderer: this.renderer,
+				top: top,
+				left: halfWidth + 20,
+				width: halfWidth,
+				height: height,
+				size: size,
+				justify: 'left',
+				text: score.initials
+			}));
+			this.playground.add(this.scoreList[this.scoreList.length - 2]);
+			this.playground.add(this.scoreList[this.scoreList.length - 1]);
+			top += height + 10;
+		});
 		this.update();
 
 		const action = {
@@ -39,39 +69,17 @@ export default class HighScoreScreen extends Screen {
 	}
 
 	update() {
-		let top = this.playground.top + 100;
-		const halfWidth = this.playground.width / 2 - 10;
-		const scoreLeft = 0;
-		const initialsLeft = halfWidth + 20;
-		const height = fontSizes[30].height;
-		this.game.highScores.scores.forEach( score => {
-			let text = new Text({
-				renderer: this.renderer,
-				top: top,
-				left: scoreLeft,
-				width: halfWidth,
-				height: height,
-				size: 30,
-				justify: 'right',
-				text: score.score.toString()
-			});
-			this.playground.add(text);
-			text = new Text({
-				renderer: this.renderer,
-				top: top,
-				left: initialsLeft,
-				width: halfWidth,
-				height: height,
-				size: 30,
-				justify: 'left',
-				text: score.initials.toString()
-			});
-			this.playground.add(text);
-			top += height + 10;
+		this.scoreList.forEach( score => score.erase());
+		this.game.highScores.scores.forEach( (score, index) => {
+			this.scoreList[index * 2].erase();
+			this.scoreList[index * 2 + 1].erase();
+			this.scoreList[index * 2].text = score.score.toString();
+			this.scoreList[index * 2 + 1].text = score.initials;
 		});
 	}
 
 	start() {
+		this.update();
 		this.scoreboard.draw();
 		this.playground.draw();
 		this.timer = setTimeout(this.nextScreen.bind(this), 5000);

@@ -9,10 +9,10 @@ export default class Component {
 		this.color = color;
 		this.font = font;
 		this.size = size;
-		this.top = top;
-		this.width = width;
-		this.left = left;
-		this.height = height;
+		this.top = Math.floor(top);
+		this.width = Math.floor(width);
+		this.left = Math.floor(left);
+		this.height = Math.floor(height);
 		this.justify = justify;
 		this.image = image;
 		this.sound = sound;
