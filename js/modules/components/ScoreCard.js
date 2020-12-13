@@ -1,60 +1,47 @@
-import ScoreBoardComponent from "./ScoreBoardComponent.js";
-import Score from "./../game/Score.js";
-import { fontSizes, borders } from "./../game/params.js";
+import Text from "./Text.js";
+import { fontSizes } from "../game/params.js";
 
 export default class ScoreCard {
 	constructor(args) {
-		const { renderer, top, left, height, width } = args;
-		const size = { text: 18, score: 20 };
+		const { renderer, top, left, width, height } = args;
 		this.renderer = renderer;
 		this.left = left;
 		this.top = top;
 		this.width = width;
 		this.height = height;
-		this.gameScore = new Score(0);
-		this.theText = new ScoreBoardComponent({
-			renderer,
-			top,
-			left,
-			width,
-			height: fontSizes[size.text].height,
-			color: "yellow",
-			size: size.text,
-			font: "Courier New, monospace",
-			text: "SCORE"
-		});
-		this.theScore = new ScoreBoardComponent({
-			renderer,
-			top: top + fontSizes[size.text].height,
-			left,
-			width,
-			height: fontSizes[size.score].height,
-			color: "yellow",
-			size: size.score,
-			font: "Courier New, monospace",
-		});
+
+		this.score = 0;
+
+		const color = "yellow";
+		const font = "Courier New, monospace";
+		let size = 18;
+		let tTop = this.top;
+		let tHeight = fontSizes[size].height;
+		this.theText = new Text({ renderer, top: tTop, left, width, height: tHeight, color, size, font, text: 'SCORE' });
+		size = 20;
+		tTop += tHeight;
+		tHeight = fontSizes[size].height;
+		this.theScore = new Text({ renderer, top: tTop, left, width, height: tHeight, color, size, font, text: this.score.toString() });
 	}
 
 	draw() {
-		this.drawHeaderText();
-		this.drawScore();
-	}
-
-	drawHeaderText() {
+		this.theText.erase();
+		this.theScore.erase();
 		this.theText.draw();
-	}
-
-	drawScore() {
-		this.theScore.draw(this.gameScore.score.toString());
+		this.theScore.draw();
 	}
 
 	add(score) {
-		this.gameScore.add(score);
-		this.drawScore();
+		this.theScore.erase();
+		this.score += score;
+		this.theScore.text = this.score.toString();
+		this.theScore.draw();
 	}
 
 	reset() {
-		this.gameScore.score = 0 ;
-		this.drawScore();
+		this.theScore.erase();
+		this.score = 0 ;
+		this.theScore.text = this.score.toString();
+		this.theScore.draw();
 	}
 }

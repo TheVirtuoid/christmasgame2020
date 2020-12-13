@@ -23,11 +23,8 @@ export default class Playground {
 		this.components.push(component);
 	}
 
-	addAsset(name, asset) {
-		this.assets[name] = asset;
-	}
-
 	clear() {
+		this.erase();
 		this.components = [];
 		this.assets = {};
 	}

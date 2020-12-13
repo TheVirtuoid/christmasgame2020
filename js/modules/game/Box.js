@@ -5,7 +5,7 @@ let boxCount = 0;
 export default class Box extends Component {
 	constructor (args) {
 		super(args);
-		const { screen, santa, image = null, sound = null } = args;
+		const { screen, santa } = args;
 		this.screen = screen;
 		this.game = this.screen.game;
 		this.width = 30;
@@ -15,8 +15,6 @@ export default class Box extends Component {
 		this.speed = 100;
 		this.action = null;
 		this.boxId = boxCount;
-		this.image = image;
-		this.sound = sound;
 		boxCount ++;
 
 	}
@@ -66,7 +64,6 @@ export default class Box extends Component {
 				} else if (!this.hit()) {
 					this.draw(this.action.futureTop, this.action.left);
 					this.action.top = this.action.futureTop;
-					// this.action.timing = this.speed;
 					this.action.timing = 1;
 					this.top = this.action.futureTop;
 				} else {

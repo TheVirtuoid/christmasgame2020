@@ -8,20 +8,21 @@ export default class Screen {
 		this.game = game;
 		const width = this.renderer.width - borders.left - borders.right;
 		const left = borders.left;
-		const sTop = borders.top;
-		const sHeight = fontSizes[18].height + fontSizes[20].height;
-		const pTop = sHeight + sTop;
-		const pHeight = this.renderer.height - borders.bottom - sHeight - borders.top;
-		this.playground = new Playground({ renderer: this.renderer, width, left, top: pTop, height: pHeight });
+		const sTop = this.game.scoreboard.top;
+		const sHeight = this.game.scoreboard.height;
+		const top = sHeight + sTop;
+		const height = this.renderer.height - borders.bottom - sHeight - borders.top;
 		this.scoreboard = this.game.scoreboard;
+		this.playground = new Playground({ renderer: this.renderer, width, left, top, height });
 	}
 
-	addScore(value) {
-		this.scoreboard.addScore(value);
+	start() {
+		this.scoreboard.draw();
+		this.playground.draw();
 	}
 
-	subtractHealth(value) {
-		this.scoreboard.subtractHealth(value);
+	stop() {
+		this.playground.clear();
 	}
 
 	setHighScore(value, initials) {

@@ -116,4 +116,13 @@ export default class Play extends Screen {
 		console.log(`--removed item ${item.boxId}`);
 	}
 
+	addScore(value) {
+		this.scoreboard.addScore(value);
+	}
+
+	subtractHealth(value) {
+		this.scoreboard.addHealth(value * -1);
+	}
+
+
 }
