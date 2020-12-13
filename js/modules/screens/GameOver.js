@@ -130,7 +130,7 @@ export default class GameOver extends Screen {
 			}
 			this.enableHighScoreComponents();
 		} else {
-			setInterval(this.nextScreen.bind(this), 10000);
+			setTimeout(this.nextScreen.bind(this), 10000);
 		}
 		this.scoreboard.draw();
 		this.playground.draw();
