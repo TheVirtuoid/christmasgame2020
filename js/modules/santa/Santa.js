@@ -1,5 +1,6 @@
 import Sleigh from "./Sleigh.js";
 import Reindeer from "./Reindeer.js";
+import { borders } from "../game/params.js";
 
 export default class Santa {
 	constructor (args) {
@@ -38,6 +39,20 @@ export default class Santa {
 		this.speed = 1;
 		this.action = null;
 		this.boundedMouseMove = this.move.bind(this);
+		this.boundedMobileMove = this.mobileMove.bind(this);
+		this.device = {
+			alpha: 0,
+			beta: 0,
+			gamma: 0,
+			gammaRange: 45,
+			gammaStep: this.screen.playground.width / 45,
+			gammaDivisor: 45 / 2,
+			gammaStart: borders.left,
+			betaRange: 45,
+			betaStep: this.screen.playground.height / 45,
+			betaDivisor: 45 / 2,
+			betaStart: borders.top
+		}
 	}
 
 	draw(top, left) {
@@ -63,16 +78,29 @@ export default class Santa {
 			futureLeft: this.left
 		}
 		this.renderer.canvas.addEventListener('mousemove', this.boundedMouseMove);
+		window.addEventListener('deviceorientation', this.boundedMobileMove);
 	}
 
 	stop() {
 		this.action = null;
+		window.removeEventListener('deviceorientation', this.boundedMobileMove);
 		this.renderer.canvas.removeEventListener('mousemove', this.boundedMouseMove);
 	}
 
 	addHealth(number) {
 		this.health += number;
 		console.log(this.health);
+	}
+
+	mobileMove(event) {
+		// console.log('--------mobilemove');
+		// console.log(event);
+		this.device.alpha = event.alpha;
+		this.device.beta = event.beta;
+		this.device.gamma = event.gamma;
+		const offsetY = (this.device.beta + this.device.betaDivisor) * this.device.betaStep + this.device.betaStart;
+		const offsetX = (this.device.gamma + this.device.gammaDivisor) * this.device.gammaStep + this.device.gammaStart;
+		this.move({ offsetX, offsetY });
 	}
 
 	move(event) {
