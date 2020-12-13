@@ -8,11 +8,16 @@ export default class Renderer {
 		this.sizer = sizer;
 		this.font = font;
 		this.fontSizes = [];
+		this.debug = false;
 		this.initSizer();
 	}
 
 	draw(args) {
 		const { text, size, color, font, pos, maxLength } = args;
+		if (this.debug) {
+			console.log('-------draw');
+			console.log(text, pos.x, pos.y, maxLength);
+		}
 		this.ctx.fillStyle = color;
 		this.ctx.font = `${size}px ${font}`;
 		if (maxLength !== 0) {
@@ -35,6 +40,10 @@ export default class Renderer {
 
 	erase(args) {
 		const { top, left, width, height } = args;
+		if (this.debug) {
+			console.log('-----erase');
+			console.log(top, left, width, height);
+		}
 		this.ctx.fillStyle = "black";
 		this.ctx.fillRect(left, top, width, height);
 	}

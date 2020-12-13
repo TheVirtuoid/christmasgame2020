@@ -8,30 +8,34 @@ export default class Credits extends Screen {
 		super(args);
 		const game = this.game;
 		const renderer = this.renderer;
-		let left = this.playground.left;
+		const left = this.playground.left;
 		const width = this.playground.width;
 		let size = 40;
 		let height = fontSizes[size].height;
 		let top = this.playground.top + 75;
 		let justify = "center";
 		const creditsText = new Text({ renderer, top: top + 20, left, width, height, size, justify, text: 'CREDITS'});
+		const size20 = 20;
+		const height20 = fontSizes[size20].height;
+		const size18 = 18;
+		const height18 = fontSizes[size18].height;
+		const left10 = left + 10;
 
-		size = 20;
 		justify = "left";
 		top += height + 45;
-		height = fontSizes[size].height;
-		const text1 = new Text({ renderer, top, left, width, height, size, justify, text: 'Images by Vecteezy'});
+		const text1 = new Text({ renderer, top, left, width, height: height20, size: size20, justify, text: 'All images by Vecteezy'});
+		top += height20 + 8;
+		const link1 = new Text({ renderer, top, left: left10, width, height: height18, size: size18, justify, text: `(https://www.vecteezy.com)`});
 
-		left += 10;
-		size = 12;
-		top += height + 8;
-		height = fontSizes[size].height;
-		const link1 = new Text({ renderer, top, left, width, height, size, justify, text: `Airplane: <https://www.vecteezy.com/free-vector/plane-window>`});
-		const link2 = new Text({ renderer, top: top + (height + 2), left, width, height, size, justify, text: `Balloon: <https://www.vecteezy.com/free-vector/air-balloon>`});
-		const link3 = new Text({ renderer, top: top + (height + 2) * 2, left, width, height, size, justify, text: `Bird: <https://www.vecteezy.com/free-vector/flying-bird>`});
-		const link4 = new Text({ renderer, top: top + (height + 2) * 3, left, width, height, size, justify, text: `Meteor: <https://www.vecteezy.com/free-vector/earth>`});
-		const link5 = new Text({ renderer, top: top + (height + 2) * 4, left, width, height, size, justify, text: `UFO: <https://www.vecteezy.com/free-vector/set>`});
+		top += height;
+		const text2 = new Text({ renderer, top, left, width, height: height20, size: size20, justify, text: `All sounds by FreeSound`});
+		top += height20 + 8;
+		const link2 = new Text({ renderer, top, left: left10, width, height: height18, size: size18, justify, text: `(https://www.freesounds.org)`});
 
+		top += height;
+		const text3 = new Text({ renderer, top, left, width, height: height20, size: size20, justify, text: 'All else by me! TheVirtuoid'});
+		top += height20 + 8;
+		const link3 = new Text({ renderer, top, left: left10, width, height: height18, size: size18, justify, text: `(https://blog.thevirtuoid.com)`});
 
 		const action = {
 			name: 'creditsStartButton',
@@ -52,10 +56,10 @@ export default class Credits extends Screen {
 		this.playground.add(creditsText);
 		this.playground.add(text1);
 		this.playground.add(link1);
+		this.playground.add(text2);
 		this.playground.add(link2);
+		this.playground.add(text3);
 		this.playground.add(link3);
-		this.playground.add(link4);
-		this.playground.add(link5);
 		this.playground.add(startButton);
 
 		this.timer = null;

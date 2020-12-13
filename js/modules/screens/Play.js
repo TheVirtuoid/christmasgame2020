@@ -10,11 +10,6 @@ import Ufo from "../baditems/Ufo.js";
 export default class Play extends Screen {
 	constructor(args) {
 		super(args);
-		this.santa = new Santa({
-			top: this.playground.height / 2,
-			left: this.playground.width / 2,
-			screen: this
-		});
 		this.action = null;
 		this.frequency = [1000, 950, 900, 850, 800, 750, 700, 650, 600, 550, 500, 450, 400, 350, 300, 250];
 		this.speed = [5, 5, 5, 5, 5, 4, 4, 3, 3, 2, 1];
@@ -24,6 +19,13 @@ export default class Play extends Screen {
 		this.badItems = ['airplane', 'balloon', 'bird', 'meteor', 'ufo'];
 		this.assets = {airplane: Airplane, balloon: Balloon, bird: Bird, meteor: Meteor, ufo: Ufo};
 		this.droppingTimer = null;
+
+		this.santa = new Santa({
+			top: this.playground.height / 2,
+			left: this.playground.width / 2,
+			screen: this
+		});
+
 	}
 
 	start() {
@@ -113,7 +115,6 @@ export default class Play extends Screen {
 
 	removeItem(item) {
 		this.items = this.items.filter( fallingItem => fallingItem.boxId !== item.boxId);
-		console.log(`--removed item ${item.boxId}`);
 	}
 
 	addScore(value) {

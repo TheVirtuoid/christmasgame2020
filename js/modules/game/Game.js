@@ -49,6 +49,9 @@ export default class Game {
 		this.remoteAssets.set('ufo', { name: 'ufo', imageUrl: 'img/ufo.png', soundUrl: 'sounds/UFO.wav', image: null, sound: null });
 		this.remoteAssets.set('up', { name: 'up', imageUrl: 'img/up.png', soundUrl: null, image: null, sound: null });
 		this.remoteAssets.set('down', { name: 'down', imageUrl: 'img/down.png', soundUrl: null, image: null, sound: null });
+		this.remoteAssets.set('reindeer', { name: 'reindeer', imageUrl: 'img/reindeer.png', soundUrl: null, image: null, sound: null });
+		this.remoteAssets.set('santa', { name: 'santa', imageUrl: 'img/santa.png', soundUrl: null, image: null, sound: null });
+
 
 		this.events = new Events({ game: this });
 		this.events.start();
