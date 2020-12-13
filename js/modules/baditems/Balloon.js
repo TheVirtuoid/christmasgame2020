@@ -1,6 +1,10 @@
 import Box from "./../game/Box.js";
 
 export default class Balloon extends Box {
+	/**
+	 * Construct a new Balloon
+	 * @param args
+	 */
 	constructor(args) {
 		super(args);
 		this.color = "LightSalmon";
@@ -11,19 +15,12 @@ export default class Balloon extends Box {
 		this.width = 34;
 	}
 
+	/**
+	 * Sets the damage upon a hit (4 - 8)
+	 * @returns {number}
+	 */
 	get damage() {
-		return Math.floor(Math.random() * 5) + 3;
+		return Math.ceil(Math.random() * 5) + 3;
 	}
 
-	draw(top, left) {
-		top = top ? top : this.top;
-		left = left ? left : this.left;
-		super.draw(top, left);
-	}
-
-	erase(top, left) {
-		top = top ? top : this.top;
-		left = left ? left : this.left;
-		super.erase(top, left);
-	}
 }

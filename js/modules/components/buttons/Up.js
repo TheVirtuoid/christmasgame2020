@@ -1,6 +1,10 @@
 import Button from "../Button.js";
 
 export default class Up extends Button {
+	/**
+	 * Constructs a new Up button (for High Score Entry)
+	 * @param {Object} args - key/value collection of arguments
+	 */
 	constructor(args) {
 		super(args);
 		this.image.height = 30;

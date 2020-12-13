@@ -1,6 +1,10 @@
 import Box from "./../game/Box.js";
 
 export default class Meteor extends Box {
+	/**
+	 * Constructs a new Meteor Icon
+	 * @param args
+	 */
 	constructor(args) {
 		super(args);
 		this.color = "crimson";
@@ -11,19 +15,12 @@ export default class Meteor extends Box {
 		this.width = 61;
 	}
 
+	/**
+	 * Sets the damage upon a hit (1 - 10)
+	 * @returns {number}
+	 */
 	get damage() {
-		return Math.floor(Math.random() * 10);
+		return Math.ceil(Math.random() * 10);
 	}
 
-	draw(top, left) {
-		top = top ? top : this.top;
-		left = left ? left : this.left;
-		super.draw(top, left);
-	}
-
-	erase(top, left) {
-		top = top ? top : this.top;
-		left = left ? left : this.left;
-		super.erase(top, left);
-	}
 }

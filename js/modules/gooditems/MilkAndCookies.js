@@ -1,3 +1,5 @@
+/** NOT CURRENTLY IMPLEMENTED */
+
 import Box from "./../game/Box.js";
 
 export default class MilkAndCookies extends Box {

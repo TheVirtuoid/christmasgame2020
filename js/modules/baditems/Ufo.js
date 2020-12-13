@@ -1,6 +1,10 @@
 import Box from "./../game/Box.js";
 
 export default class Ufo extends Box {
+	/**
+	 * Constructs a new UFO icon
+	 * @param args
+	 */
 	constructor(args) {
 		super(args);
 		this.color = "LightCoral";
@@ -11,20 +15,12 @@ export default class Ufo extends Box {
 		this.width = 30;
 	}
 
+	/**
+	 * Sets the damage upon a hit (16 - 25)
+	 * @returns {number}
+	 */
 	get damage() {
-		return Math.floor(Math.random() * 10) + 15;
-	}
-
-	draw(top, left) {
-		top = top ? top : this.top;
-		left = left ? left : this.left;
-		super.draw(top, left);
-	}
-
-	erase(top, left) {
-		top = top ? top : this.top;
-		left = left ? left : this.left;
-		super.erase(top, left);
+		return Math.ceil(Math.random() * 10) + 15;
 	}
 
 }

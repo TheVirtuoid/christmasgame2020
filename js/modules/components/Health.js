@@ -2,6 +2,10 @@ import { fontSizes } from "../game/params.js";
 import Text from "./Text.js";
 
 export default class Health {
+	/**
+	 * Construct the Health section of the Scoreboard
+	 * @param {Object} args - key/value collection of arguments.
+	 */
 	constructor(args) {
 		const { renderer, top, left, height, width } = args;
 		this.score = 100;
@@ -23,6 +27,9 @@ export default class Health {
 		this.theScore = new Text({ renderer, top: tTop, left, width, height: tHeight, color, size, font, text: this.score.toString() });
 	}
 
+	/**
+	 * Draw the text and the Score
+	 */
 	draw() {
 		this.theText.erase();
 		this.theScore.erase();
@@ -30,6 +37,10 @@ export default class Health {
 		this.theScore.draw();
 	}
 
+	/**
+	 * Add to the score. The score is redrawn.
+	 * @param {Number} score - amount to add to the score.
+	 */
 	add(score) {
 		this.theScore.erase();
 		this.score += score;
@@ -37,6 +48,9 @@ export default class Health {
 		this.theScore.draw();
 	}
 
+	/**
+	 * Reset the score. The score is redrawn.
+	 */
 	reset() {
 		this.theScore.erase();
 		this.score = 100;

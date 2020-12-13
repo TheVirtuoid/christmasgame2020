@@ -3,6 +3,12 @@ import { borders } from "./params.js";
 let boxCount = 0;
 
 export default class Box extends Component {
+	/**
+	 * Constructs a new Box (icon, solid box)
+	 * @param {Object} args - key/value collection of properties
+	 * @param {Screen} args.screen - the Screen associated with this instance
+	 * @param {Santa} args.santa - the Santa icon associated with this instance. Used for hit determination
+	 */
 	constructor (args) {
 		super(args);
 		const { screen, santa } = args;
@@ -16,9 +22,13 @@ export default class Box extends Component {
 		this.action = null;
 		this.boxId = boxCount;
 		boxCount ++;
-
 	}
 
+	/**
+	 * Draw the image/box
+	 * @param {Number} top - upper-left corner of image/box (Y-axis)
+	 * @param {Number} left - upper-left corner of image/box (X-axis)
+	 */
 	draw(top, left) {
 		top = top ? top : this.top;
 		left = left ? left : this.left;
@@ -29,12 +39,26 @@ export default class Box extends Component {
 		}
 	}
 
+	/**
+	 * Erase the image/box
+	 * @param {Number} top - upper-left corner of image/box (Y-axis)
+	 * @param {Number} left - upper-left corner of image/box (X-axis)
+	 */
 	erase(top, left) {
 		top = top ? top : this.top;
 		left = left ? left : this.left;
 		super.erase(top, left);
 	}
 
+	/**
+	 * Start the dropping process
+	 * @param {Number} left - upper-left corner of image/box to start display (X-axis)
+	 * @param {Number} time - milliseconds neede to traverse the entire screen from top to bottom
+	 *
+	 * The 'action' property controls the timing and the speed (distance) of the falling object
+	 * at each frame interval (determined by requestAnimationFrame). To stop the object from
+	 * falling, the 'action' property is set to null.
+	 */
 	start(left, time = 5000) {
 		left = left ? left : this.left;
 		this.action = {
@@ -48,11 +72,18 @@ export default class Box extends Component {
 		this.screen.addItem(this);
 	}
 
+	/**
+	 * Stop the dropping process.
+	 */
 	stop() {
 		this.action = null;
 		this.screen.removeItem(this);
 	}
 
+	/**
+	 * Move the image/box one frame (defined by action.distance)
+	 * @param {Number} timing - passed by the requestAnimationFrame method (not used here)
+	 */
 	move(timing) {
 		if (this.action) {
 			this.action.timing --;
@@ -69,7 +100,7 @@ export default class Box extends Component {
 				} else {
 					const damage = this.damage;
 					this.sound.play();
-					console.log(`*** You got hit by a ${this.name} dealing ${damage} damage.`);
+					// console.log(`*** You got hit by a ${this.name} dealing ${damage} damage.`);
 					this.screen.subtractHealth(damage);
 					this.stop();
 				}
@@ -77,6 +108,12 @@ export default class Box extends Component {
 		}
 	}
 
+	/**
+	 * Determine if there was a hit.
+	 * @returns {boolean} - True if there was a hit.
+	 *
+	 * For this game, it's easier to determine if the object has *not* hit Santa. Therefore, the negative logic below.
+	 */
 	hit () {
 		const { top, left, width, height } = this.santa;
 		const d = this.action;
