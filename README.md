@@ -58,6 +58,9 @@ This is my holiday gift to you. Run with it and have fun!
 ## Other Links
 
 [Boring JavaScript Github](https://github.com/TheVirtuoid/boringjavascript)
+
 [Boring JavaScript YouTube Channel](https://www.youtube.com/channel/UCKZ7CV6fI7xlh7zIE9TWqgw)
+
 [TheVirtuoid Blog](https://blog.thevirtuoid.com/)
+
 
