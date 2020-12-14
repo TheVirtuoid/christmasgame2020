@@ -4,6 +4,10 @@ import Text from "../components/Text.js";
 import Button from "../components/Button.js";
 
 export default class Intro extends Screen {
+	/**
+	 * Construct the Introductory screen
+	 * @param {Object} args - key/value collection of properties
+	 */
 	constructor(args) {
 		super(args);
 		const game = this.game;
@@ -42,22 +46,34 @@ export default class Intro extends Screen {
 		this.timer = null;
 	}
 
-	processStartButton(event) {
+	/**
+	 * Process the Start Button
+	 */
+	processStartButton() {
 		clearTimeout(this.timer);
 		this.timer = null;
 		this.game.switchScreens('play');
 	}
 
+	/**
+	 * Start the intro screen. If no action after 5 seconds, move on to the next screen
+	 */
 	start() {
 		super.start();
 		this.timer = setTimeout( this.nextScreen.bind(this), 5000);
 	}
 
+	/**
+	 * Display the next screen.
+	 */
 	nextScreen() {
 		this.timer = null;
 		this.game.switchScreens('highscore');
 	}
 
+	/**
+	 * Stop this screen! NOTE: And fix that screen.erase method! Don't use it here until it is fixed.
+	 */
 	stop() {
 		this.playground.erase();
 	}

@@ -6,8 +6,11 @@ import Bird from "../baditems/Bird.js";
 import Meteor from "../baditems/Meteor.js";
 import Ufo from "../baditems/Ufo.js";
 
-
 export default class Play extends Screen {
+	/**
+	 * Construct a new Play screen
+	 * @param {Object} args - key/value collection of properties
+	 */
 	constructor(args) {
 		super(args);
 		this.action = null;
@@ -28,6 +31,10 @@ export default class Play extends Screen {
 
 	}
 
+	/**
+	 * Start playing the game. This also starts the BadItem dropping sequence and the requestAnimationFrame sequence
+	 * to properly display the Santa and the Bad Items
+	 */
 	start() {
 		this.playground.clear();
 		this.scoreboard.reset();
@@ -39,6 +46,10 @@ export default class Play extends Screen {
 		setTimeout(this.beginDropping.bind(this), 2000);
 	}
 
+	/**
+	 * Process a frame of animation. Move Santa, move all the items, and if the health is 0 or less, the game is over!
+	 * @param {Number} timing - argument passed by requestAnimationFrame
+	 */
 	frame(timing) {
 		this.santa.moveSanta(timing);
 		this.items.forEach( item => item.move(timing));
@@ -52,10 +63,17 @@ export default class Play extends Screen {
 		}
 	}
 
+	/**
+	 * End this screen. NOTE: No super.erase() here until screen.erase is fixed!
+	 * @param event
+	 */
 	stop (event) {
 		this.playground.erase();
 	}
 
+	/**
+	 * Start the dropping process. This also includes starting the score timer to increment the score.
+	 */
 	beginDropping() {
 		this.scoreTimer = setInterval(this.incrementScore.bind(this), 10);
 		let frequencyIndex = 0;
@@ -88,8 +106,11 @@ export default class Play extends Screen {
 				self.droppingTimer = setInterval( _dropItem, self.frequency[frequencyIndex], self);
 			}
 		}
-
 	}
+
+	/**
+	 * End the dropping sequence. Santa has been hit one to many times!
+	 */
 	endDropping() {
 		this.allDone = true;
 		const items = this.items.map( item => item.boxId);
@@ -104,23 +125,42 @@ export default class Play extends Screen {
 		this.santa.erase();
 	}
 
+	/**
+	 * Increment the score
+	 */
 	incrementScore() {
 		this.addScore(1);
 	}
 
+	/**
+	 * Add an item to the list of items being dropped. This is called from the component's 'start()' method
+	 * @param {Box} item - item to be dropped
+	 */
 	addItem(item) {
 		this.items.push(item);
-		console.log(`--pushed item ${item.boxId}`);
+		// console.log(`--pushed item ${item.boxId}`);
 	}
 
+	/**
+	 * Remove the component from the items being dropped. Occurs after a hit or after it goes off the screen.
+	 * @param {Box} item - item to be removed
+	 */
 	removeItem(item) {
 		this.items = this.items.filter( fallingItem => fallingItem.boxId !== item.boxId);
 	}
 
+	/**
+	 * Add a score!
+	 * @param {Number} value - score to the added
+	 */
 	addScore(value) {
 		this.scoreboard.addScore(value);
 	}
 
+	/**
+	 * Subtract out damage from a hit
+	 * @param {Number} value - score to be subtracted
+	 */
 	subtractHealth(value) {
 		this.scoreboard.addHealth(value * -1);
 	}

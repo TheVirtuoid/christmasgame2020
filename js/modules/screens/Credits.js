@@ -4,6 +4,10 @@ import Text from "../components/Text.js";
 import Button from "../components/Button.js";
 
 export default class Credits extends Screen {
+	/**
+	 * Construct the Credits Screen
+	 * @param {Object} args - key/value collection of properties
+	 */
 	constructor(args) {
 		super(args);
 		const game = this.game;
@@ -65,22 +69,36 @@ export default class Credits extends Screen {
 		this.timer = null;
 	}
 
+	/**
+	 * Process the click of the StartButton
+	 * @param {MouseEvent} event - the mouse event
+	 */
 	processStartButton(event) {
 		clearTimeout(this.timer);
 		this.timer = null;
 		this.game.switchScreens('play');
 	}
 
+	/**
+	 * Display the screen. After 5 seconds, move onwards to the next screen.
+	 */
 	start() {
 		super.start();
 		this.timer = setTimeout( this.nextScreen.bind(this), 5000);
 	}
 
+	/**
+	 * Display the next screen in order
+	 */
 	nextScreen() {
 		this.timer = null;
 		this.game.switchScreens('intro');
 	}
 
+	/**
+	 * Stop this screen. NOTE: There is an error in the stop() method for Screen, which clears() the playground.
+	 * We really need to get that fixed.
+	 */
 	stop() {
 		this.playground.erase();
 	}

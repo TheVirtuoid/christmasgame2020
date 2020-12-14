@@ -36,7 +36,7 @@ export default class Playground {
 
 	/**
 	 * Add a component to the playground
-	 * @param {Component} component - the component to add
+	 * @param {Component|Santa} component - the component to add
 	 */
 	add(component) {
 		this.components.push(component);

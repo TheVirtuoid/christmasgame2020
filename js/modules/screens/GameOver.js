@@ -6,6 +6,10 @@ import Up from "../components/buttons/Up.js";
 import Down from "../components/buttons/Down.js";
 
 export default class GameOver extends Screen {
+	/**
+	 * Construct the Game Over screen. Processes the New High Score buttons
+	 * @param args
+	 */
 	constructor(args) {
 		super(args);
 		const { left, width } = this.playground;
@@ -57,6 +61,10 @@ export default class GameOver extends Screen {
 		this.timer = null;
 	}
 
+	/**
+	 * Display the screen. Also displays the high score screen if needed.
+	 * If there is no high score, then after 10 seconds, we go onwards to the next screen.
+	 */
 	start() {
 		this.disableHighScoreComponents();
 		const isHighScore = this.game.highScores.isHighScore(this.game.scoreboard.getScore());
@@ -137,20 +145,32 @@ export default class GameOver extends Screen {
 		this.playground.draw();
 	}
 
+	/**
+	 * Stops the Game Over screen. NOTE: We need to fix the super.stop() in Screen as it does a 'clear', not 'erase'.
+	 */
 	stop() {
 		this.playground.erase();
 		this.disableHighScoreComponents();
 	}
 
+	/**
+	 * Go onwards to the next screen
+	 */
 	nextScreen() {
 		this.game.switchScreens('intro');
 	}
 
+	/**
+	 * Process the Start Button Click
+	 */
 	processStartButton() {
 		clearTimeout(this.timer);
 		this.game.switchScreens('play');
 	}
 
+	/**
+	 * Process the New High Score submit button.
+	 */
 	processSubmitButton() {
 		const score = this.scoreboard.getScore();
 		const initials = `${this.initial1.text}${this.initial2.text}${this.initial3.text}`;
@@ -159,51 +179,78 @@ export default class GameOver extends Screen {
 		this.game.switchScreens('intro');
 	}
 
+	/**
+	 * Move the first initial up by 1 letter
+	 */
 	upInitial1() {
 		this.upInitial(this.initial1);
 	}
+
+	/**
+	 * Move the second initial up by 1 letter
+	 */
 	upInitial2() {
 		this.upInitial(this.initial2);
 	}
+
+	/**
+	 * Move the third initial up by 1 letter
+	 */
 	upInitial3() {
 		this.upInitial(this.initial3);
 	}
+
+	/**
+	 * Move the first initial down by 1 letter
+	 */
 	downInitial1() {
 		this.downInitial(this.initial1);
 	}
+
+	/**
+	 * Move the second initial down by 1 letter
+	 */
 	downInitial2() {
 		this.downInitial(this.initial2);
 	}
+
+	/**
+	 * Move the third initial down by 1 letter
+	 */
 	downInitial3() {
 		this.downInitial(this.initial3);
 	}
 
+	/**
+	 * Move passed initial up by 1 letter
+	 * @param {Object} initialObj - the initial in question
+	 */
 	upInitial(initialObj) {
 		initialObj.erase();
-		initialObj = this.getNextInitial(initialObj);
+		// initialObj = this.getNextInitial(initialObj);
+		let index = this.initialRange.indexOf(initialObj.text) + 1;
+		index = index === this.initialRange.length ? 0 : index;
+		initialObj.text = this.initialRange.charAt(index);
 		initialObj.draw();
 	}
 
+	/**
+	 * Move passed initial down by 1 letter
+	 * @param {Object} initialObj - the initial in question
+	 */
 	downInitial(initialObj) {
 		initialObj.erase();
-		initialObj = this.getPrevInitial(initialObj);
+		// initialObj = this.getPrevInitial(initialObj);
+		let index = this.initialRange.indexOf(initialObj.text) - 1;
+		index = index === -1 ? this.initialRange.length - 1 : index;
+		initialObj.text = this.initialRange.charAt(index);
 		initialObj.draw();
 	}
 
-	getNextInitial(initial) {
-		let index = this.initialRange.indexOf(initial.text) + 1;
-		index = index === this.initialRange.length ? 0 : index;
-		initial.text = this.initialRange.charAt(index);
-		return initial;
-	}
-
-	getPrevInitial(initial) {
-		let index = this.initialRange.indexOf(initial.text) - 1;
-		index = index === -1 ? this.initialRange.length - 1 : index;
-		initial.text = this.initialRange.charAt(index);
-		return initial;
-	}
-
+	/**
+	 * Enable high score components to be clickable. This is needed to prevent clicking on
+	 * the buttons when they are not on the screen, but are still part of the playground
+	 */
 	enableHighScoreComponents() {
 		this.highScoreComponents.forEach( component => {
 			component.noDraw = false;
@@ -213,6 +260,11 @@ export default class GameOver extends Screen {
 		this.initial2.text = "A";
 		this.initial3.text = "A";
 	}
+
+	/**
+	 * Disable high score components to be clickable. This is needed to prevent clicking on
+	 * the buttons when they are not on the screen, but are still part of the playground.
+	 */
 	disableHighScoreComponents() {
 		this.highScoreComponents.forEach( component => {
 			component.noDraw = true;

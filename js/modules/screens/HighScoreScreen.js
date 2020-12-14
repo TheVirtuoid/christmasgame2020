@@ -4,6 +4,10 @@ import {fontSizes} from "../game/params.js";
 import Button from "../components/Button.js";
 
 export default class HighScoreScreen extends Screen {
+	/**
+	 * Construct a High Score Screen
+	 * @param {Object} args - key/value collection of properties
+	 */
 	constructor(args) {
 		super(args);
 		this.hsText = new Text({
@@ -68,6 +72,9 @@ export default class HighScoreScreen extends Screen {
 		this.timer = null;
 	}
 
+	/**
+	 * Update the scores on the screen. This is normally called when there is a change in the high score
+	 */
 	update() {
 		this.scoreList.forEach( score => score.erase());
 		this.game.highScores.scores.forEach( (score, index) => {
@@ -78,6 +85,9 @@ export default class HighScoreScreen extends Screen {
 		});
 	}
 
+	/**
+	 * Start the high score screen. If nothing happens after 5 seconds, move on to the next screen
+	 */
 	start() {
 		this.update();
 		this.scoreboard.draw();
@@ -85,15 +95,24 @@ export default class HighScoreScreen extends Screen {
 		this.timer = setTimeout(this.nextScreen.bind(this), 5000);
 	}
 
+	/**
+	 * Stop the screen. NOTE: We need to fix super.erase() as it calls clear() and not erase()
+ 	 */
 	stop() {
 		this.playground.erase();
 	}
 
+	/**
+	 * Go to the next screen.
+	 */
 	nextScreen() {
 		this.timer = null;
 		this.game.switchScreens('credits');
 	}
 
+	/**
+	 * Process the start button
+	 */
 	processStartButton() {
 		clearTimeout(this.timer);
 		this.timer = null;

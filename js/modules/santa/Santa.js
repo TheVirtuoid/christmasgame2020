@@ -3,6 +3,13 @@ import Reindeer from "./Reindeer.js";
 import { borders } from "../game/params.js";
 
 export default class Santa {
+	/**
+	 * Construct a new Santa Clause
+	 * @param {Object} args - key/value collection of properties
+	 * @param {Number} args.top - upper left corner of object (Y-axis)
+	 * @param {Number} args.left - upper left corner of object (X-axis)
+	 * @param {Screen} args.screen - screen associated with this Santa
+	 */
 	constructor (args) {
 		const { top, left, screen } = args;
 		this.renderer = screen.renderer;
@@ -56,6 +63,11 @@ export default class Santa {
 		}
 	}
 
+	/**
+	 * Draw the Reindeer and the Sleigh
+	 * @param {Number} top - upper left corner of object (Y-axis)
+	 * @param {Number} left - upper left corner of object (X-axis)
+	 */
 	draw(top, left) {
 		top = top ? top : this.top;
 		left = left ? left : this.left;
@@ -63,6 +75,11 @@ export default class Santa {
 		this.sleigh.draw(top + 80, left);
 	}
 
+	/**
+	 * Erase the reindeer and the sleigh
+	 * @param {Number} top - upper left corner of object (Y-axis)
+	 * @param {Number} left - upper left corner of object (X-axis)
+	 */
 	erase(top, left) {
 		top = top ? top : this.top;
 		left = left ? left : this.left;
@@ -70,6 +87,9 @@ export default class Santa {
 		this.sleigh.erase(top + 80, left);
 	}
 
+	/**
+	 * Start processing the Santa. This adds events for both mouse movement and change in device orientation (mobile)
+	 */
 	start() {
 		this.action = {
 			top: this.top,
@@ -82,17 +102,27 @@ export default class Santa {
 		window.addEventListener('deviceorientation', this.boundedMobileMove);
 	}
 
+	/**
+	 * Stop processing the Santa. Removes the event listeners for the mouse and the device
+	 */
 	stop() {
 		this.action = null;
 		window.removeEventListener('deviceorientation', this.boundedMobileMove);
 		this.renderer.canvas.removeEventListener('mousemove', this.boundedMouseMove);
 	}
 
+	/**
+	 * Add a number to the health of the Santa
+	 * @param {Number} number - value to add to the health of the Santa
+	 */
 	addHealth(number) {
 		this.health += number;
-		console.log(this.health);
 	}
 
+	/**
+	 * Routine to process a change in the device orientation. This is converted to offsetX/offsetY and processed by tge mouse movement routine
+	 * @param {DeviceOrientationEvent} event - the device orientation event.
+	 */
 	mobileMove(event) {
 		this.device.alpha = event.alpha;
 		this.device.beta = event.beta;
@@ -102,6 +132,10 @@ export default class Santa {
 		this.move({ offsetX, offsetY });
 	}
 
+	/**
+	 * Process a mouse movement event. Also used by the mobileMove routine above.
+	 * @param {MouseEvent} event - the mousemouse event
+	 */
 	move(event) {
 		let { offsetX, offsetY } = event;
 		if (offsetX !== this.action.futureLeft || offsetY !== this.action.futureTop) {
@@ -115,6 +149,10 @@ export default class Santa {
 		}
 	}
 
+	/**
+	 * Move the Santa from one place to another
+	 * @param {Number} timing - timing value sent from requestAnimationFrame
+	 */
 	moveSanta(timing) {
 		if (this.action) {
 			this.action.timing --;
